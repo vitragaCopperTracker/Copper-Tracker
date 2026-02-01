@@ -12,6 +12,7 @@ import Substacks from "@/components/Home/Substacks";
 import DailyNewsletterAd from "@/components/Home/DailyNewsletterAd";
 import Footer from "@/components/Footer";
 import TVCopperCFD from "@/components/Home/TVCopperCFD";
+import TVCopper from "@/components/Home/TVCopper";
 import PlainNews from "@/components/Home/PlainNews";
 import HomeCopperPrice from "@/components/Home/HomeCopperPrice";
 
@@ -27,7 +28,7 @@ const home = () => {
         <div className="w-full md:w-[24%] flex flex-col space-y-14">
           <div>
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              CFDs on Copper
+              Copper Price Chart
             </h1>
             <TVCopperCFD />
           </div>
@@ -50,9 +51,9 @@ const home = () => {
         <div className="w-full md:w-[24%] flex flex-col space-y-14  ">
           <div>
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              CFDs on Copper
+              Copper Futures
             </h1>
-            <TVCopperCFD />
+            <TVCopper />
           </div>
           <Substacks />
         </div>

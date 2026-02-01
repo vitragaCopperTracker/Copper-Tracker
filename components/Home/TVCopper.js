@@ -14,7 +14,7 @@ function CopperTradingViewWidget() {
         {
           "width": "100%",
           "height": "250",
-          "symbol": "HG1!",
+          "symbol": "LME:CA1!",
           "interval": "D",
           "timezone": "Etc/UTC",
           "theme": "light",

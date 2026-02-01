@@ -14,7 +14,7 @@ function CopperCFDTradingViewWidget() {
         {
           "width": "100%",
           "height": "250",
-          "symbol": "COPPERFXCM",
+          "symbol": "CAPITALCOM:COPPER",
           "interval": "D",
           "timezone": "Etc/UTC",
           "theme": "light",
