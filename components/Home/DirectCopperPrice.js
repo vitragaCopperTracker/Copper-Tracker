@@ -6,93 +6,62 @@ const DirectCopperPrice = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCopperPriceDirectly = async () => {
+    const fetchCopperPrice = async () => {
       try {
         setLoading(true);
         
-        // Method 1: Try Yahoo Finance directly (might have CORS issues)
-        let response;
-        try {
-          response = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/HG=F?interval=1d&range=5d', {
-            headers: {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-          });
-        } catch (corsError) {
-          console.log('Direct Yahoo Finance blocked by CORS, trying proxy...');
-          
-          // Method 2: Use CORS proxy
-          const proxyUrl = 'https://api.allorigins.win/raw?url=';
-          const yahooUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/HG=F?interval=1d&range=5d';
-          response = await fetch(proxyUrl + encodeURIComponent(yahooUrl));
-        }
+        // Fetch copper price from our database API
+        const response = await fetch('/api/copper-prices');
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
-        const result = data.chart.result[0];
-        const meta = result.meta;
         
-        // Get current price and previous close
-        const currentPrice = meta.regularMarketPrice || meta.chartPreviousClose;
-        const previousClose = meta.chartPreviousClose;
-        
-        // Validate that we have valid numbers
-        if (!currentPrice || !previousClose || isNaN(currentPrice) || isNaN(previousClose)) {
-          throw new Error('Invalid price data received from Yahoo Finance');
+        if (!data.success || !data.data || data.data.length === 0) {
+          throw new Error('No copper price data available');
         }
         
-        // Calculate change and percentage
-        const change = currentPrice - previousClose;
-        const changePercent = (change / previousClose) * 100;
+        // Find copper data
+        const copperPrice = data.data.find(item => item.metal_name === 'Copper');
         
-        console.log('Direct Yahoo Finance fetch successful:', {
-          currentPrice,
-          previousClose,
-          change,
-          changePercent
-        });
+        if (!copperPrice) {
+          throw new Error('Copper price not found in database');
+        }
         
         setCopperData({
-          price: parseFloat(currentPrice.toFixed(4)),
-          price_change: parseFloat(change.toFixed(4)),
-          price_change_percent: parseFloat(changePercent.toFixed(2)),
-          source: "Yahoo Finance (Direct)",
-          symbol: "HG=F",
-          last_updated: new Date().toISOString()
+          price: parseFloat(copperPrice.price),
+          price_change: parseFloat(copperPrice.price_change),
+          price_change_percent: parseFloat(copperPrice.price_change_percent),
+          source: "Database API",
+          symbol: copperPrice.symbol,
+          last_updated: copperPrice.last_updated
         });
         
       } catch (error) {
-        console.error('Error fetching copper price directly:', error);
-        
-        // Fallback: Generate realistic mock data
-        const basePrice = 4.15;
-        const randomChange = (Math.random() - 0.5) * 0.20; // Random change between -0.10 and +0.10
-        const currentPrice = basePrice + randomChange;
-        const changePercent = (randomChange / basePrice) * 100;
-        
-        setCopperData({
-          price: parseFloat(currentPrice.toFixed(4)),
-          price_change: parseFloat(randomChange.toFixed(4)),
-          price_change_percent: parseFloat(changePercent.toFixed(2)),
-          source: "Market Data (Simulated)",
-          symbol: "COPPER",
-          last_updated: new Date().toISOString(),
-          note: "Real-time data temporarily unavailable"
-        });
-        
+        console.error('Error fetching copper price from database:', error);
         setError(error.message);
+        
+        // Fallback data
+        setCopperData({
+          price: 4.15,
+          price_change: -0.08,
+          price_change_percent: -1.89,
+          source: "Fallback Data",
+          symbol: "HG=F",
+          last_updated: new Date().toISOString(),
+          note: "Database temporarily unavailable"
+        });
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCopperPriceDirectly();
+    fetchCopperPrice();
     
-    // Refresh every 5 minutes
-    const interval = setInterval(fetchCopperPriceDirectly, 5 * 60 * 1000);
+    // Refresh every 2 minutes
+    const interval = setInterval(fetchCopperPrice, 2 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -194,17 +163,17 @@ const DirectCopperPrice = () => {
         )}
         {error && (
           <p className="text-xs text-red-500 mt-1">
-            Note: Using simulated data due to API restrictions
+            Note: Using fallback data - {error}
           </p>
         )}
         <p className="font-medium text-date text-sm md:text-xs lg:text-sm">
           <a
             target="_blank"
             className="text-accent hover:text-accent/60 transition-all duration-200"
-            href="https://finance.yahoo.com/quote/HG=F"
+            href="/api/copper-prices"
             rel="noopener noreferrer"
           >
-            Yahoo Finance - Copper Futures
+            Database API - Metal Prices
           </a>
         </p>
       </div>

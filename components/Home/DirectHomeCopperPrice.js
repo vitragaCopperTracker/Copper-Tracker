@@ -7,126 +7,67 @@ const DirectHomeCopperPrice = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPricesDirectly = async () => {
+    const fetchPricesFromDatabase = async () => {
       try {
         setLoading(true);
         
-        // Fetch copper price directly from Yahoo Finance
-        let response;
-        try {
-          // Try direct fetch first
-          response = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/HG=F?interval=1d&range=5d', {
-            headers: {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-          });
-        } catch (corsError) {
-          console.log('Direct fetch blocked, using proxy...');
-          // Use CORS proxy as fallback
-          const proxyUrl = 'https://api.allorigins.win/raw?url=';
-          const yahooUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/HG=F?interval=1d&range=5d';
-          response = await fetch(proxyUrl + encodeURIComponent(yahooUrl));
-        }
+        // Fetch metal prices from our database API
+        const response = await fetch('/api/copper-prices');
         
         if (!response.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
-        const result = data.chart.result[0];
-        const meta = result.meta;
         
-        // Get current price and previous close
-        const currentPrice = meta.regularMarketPrice || meta.chartPreviousClose;
-        const previousClose = meta.chartPreviousClose;
-        
-        // Validate that we have valid numbers
-        if (!currentPrice || !previousClose || isNaN(currentPrice) || isNaN(previousClose)) {
-          throw new Error('Invalid price data received from Yahoo Finance');
+        if (!data.success || !data.data || data.data.length === 0) {
+          throw new Error('No metal price data available from database');
         }
         
-        // Calculate change and percentage
-        const change = currentPrice - previousClose;
-        const changePercent = (change / previousClose) * 100;
+        // Transform database data to component format
+        const metalPrices = data.data.map(item => ({
+          metal_name: item.metal_name,
+          price: parseFloat(item.price),
+          price_change: parseFloat(item.price_change),
+          price_change_percent: parseFloat(item.price_change_percent),
+          source: "Database API"
+        }));
         
-        console.log('Direct Yahoo Finance data:', {
-          currentPrice,
-          previousClose,
-          change,
-          changePercent
-        });
-        
-        // Create copper data with real values
-        const copperData = {
-          metal_name: "Copper",
-          price: parseFloat(currentPrice.toFixed(4)),
-          price_change: parseFloat(change.toFixed(4)),
-          price_change_percent: parseFloat(changePercent.toFixed(2)),
-          source: "Yahoo Finance (Direct)"
-        };
-        
-        // Calculate other metals based on copper with realistic ratios
-        const otherMetals = [
-          {
-            metal_name: "Aluminum",
-            price: parseFloat((copperData.price * 0.22).toFixed(4)),
-            price_change: parseFloat((copperData.price_change * 0.22).toFixed(4)),
-            price_change_percent: parseFloat((copperData.price_change_percent * 0.8).toFixed(2)),
-            source: "Calculated"
-          },
-          {
-            metal_name: "Nickel",
-            price: parseFloat((copperData.price * 2.05).toFixed(4)),
-            price_change: parseFloat((copperData.price_change * 2.05).toFixed(4)),
-            price_change_percent: parseFloat((copperData.price_change_percent * 1.2).toFixed(2)),
-            source: "Calculated"
-          },
-          {
-            metal_name: "Zinc",
-            price: parseFloat((copperData.price * 0.30).toFixed(4)),
-            price_change: parseFloat((copperData.price_change * 0.30).toFixed(4)),
-            price_change_percent: parseFloat((copperData.price_change_percent * 0.9).toFixed(2)),
-            source: "Calculated"
-          }
-        ];
-        
-        // Combine all metals with copper first
-        const allMetals = [copperData, ...otherMetals];
-        setCopperPrices(allMetals);
+        setCopperPrices(metalPrices);
         
       } catch (err) {
-        console.error('Error fetching prices directly:', err);
+        console.error('Error fetching prices from database:', err);
         setError(err.message);
         
-        // Fallback to realistic mock data
+        // Fallback to mock data
         const fallbackData = [
           {
             metal_name: "Copper",
             price: 4.15,
             price_change: -0.08,
             price_change_percent: -1.89,
-            source: "Simulated"
+            source: "Fallback"
           },
           {
             metal_name: "Aluminum", 
             price: 0.91,
             price_change: -0.02,
             price_change_percent: -1.51,
-            source: "Simulated"
+            source: "Fallback"
           },
           {
             metal_name: "Nickel",
             price: 8.51,
             price_change: -0.16,
             price_change_percent: -2.27,
-            source: "Simulated"
+            source: "Fallback"
           },
           {
             metal_name: "Zinc",
             price: 1.25,
             price_change: -0.02,
             price_change_percent: -1.70,
-            source: "Simulated"
+            source: "Fallback"
           }
         ];
         setCopperPrices(fallbackData);
@@ -135,10 +76,10 @@ const DirectHomeCopperPrice = () => {
       }
     };
 
-    fetchPricesDirectly();
+    fetchPricesFromDatabase();
     
-    // Refresh every 5 minutes
-    const interval = setInterval(fetchPricesDirectly, 5 * 60 * 1000);
+    // Refresh every 2 minutes
+    const interval = setInterval(fetchPricesFromDatabase, 2 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -185,8 +126,8 @@ const DirectHomeCopperPrice = () => {
       <td className="border-t px-4 py-3 text-center">
         <a
           href={metalData.metal_name === "Copper" 
-            ? "https://finance.yahoo.com/quote/HG=F" 
-            : "https://www.lme.com/en/metals/non-ferrous/copper"
+            ? "/api/copper-prices" 
+            : "/api/copper-prices"
           }
           target="_blank"
           rel="noopener noreferrer"
@@ -233,12 +174,12 @@ const DirectHomeCopperPrice = () => {
       
       {error && (
         <div className="mt-2 text-xs text-orange-600 text-center">
-          Note: Some data may be simulated due to API restrictions
+          Note: Using fallback data - {error}
         </div>
       )}
       
       <div className="mt-2 text-xs text-gray-500 text-center">
-        Last updated: {new Date().toLocaleTimeString()} • Auto-refresh: 5 min
+        Last updated: {new Date().toLocaleTimeString()} • Auto-refresh: 2 min • Source: Database API
       </div>
     </div>
   );
