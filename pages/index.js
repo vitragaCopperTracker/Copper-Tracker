@@ -17,6 +17,7 @@ import DirectCopperPrice from "@/components/Home/DirectCopperPrice";
 import DirectHomeCopperPrice from "@/components/Home/DirectHomeCopperPrice";
 import SEO from "@/components/SEO";
 import StocksMarquee from "@/components/Home/StocksMarquee";
+import MostFollowedStocksTable from "@/components/Home/MostFollowedStocksTable";
 
 const home = () => {
   return (
@@ -92,6 +93,10 @@ const home = () => {
           {/* <Substacks /> */}
         </div>
       </div>
+      
+      {/* Most Followed Stocks Table */}
+      <MostFollowedStocksTable />
+      
       {/* Stay ahead section */}
       <div className="my-14">
         <StayAhead />
