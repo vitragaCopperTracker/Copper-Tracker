@@ -385,6 +385,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
 import { GENERAL_NEWS, STOCK_NEWS } from "@/src/api/copperAPI";
 
+// Updated: 2026-02-15 - Force deployment with general news endpoint
 const LatestNews = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
