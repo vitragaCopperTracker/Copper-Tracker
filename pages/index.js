@@ -51,7 +51,7 @@ const home = () => {
         {/* 2  */}
         <div className="w-full lg:w-[40%] flex flex-col space-y-14">
           <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1 mt-14 md:mt-0">
+            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1 mt-14 md:vtrv-0">
               Prices
             </h1>
             <DirectHomeCopperPrice />

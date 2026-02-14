@@ -20,12 +20,19 @@ const DirectHomeCopperPrice = () => {
         
         const data = await response.json();
         
-        if (!data.success || !data.data || data.data.length === 0) {
+        if (!data.success || !data.data) {
+          throw new Error('No metal price data available from database');
+        }
+        
+        // Ensure data.data is an array
+        const dataArray = Array.isArray(data.data) ? data.data : [data.data];
+        
+        if (dataArray.length === 0) {
           throw new Error('No metal price data available from database');
         }
         
         // Transform database data to component format
-        const metalPrices = data.data.map(item => ({
+        const metalPrices = dataArray.map(item => ({
           metal_name: item.metal_name,
           price: parseFloat(item.price),
           price_change: parseFloat(item.price_change),
@@ -169,7 +176,17 @@ const DirectHomeCopperPrice = () => {
             <th className="border-t px-4 py-2">Source</th>
           </tr>
         </thead>
-        <tbody>{copperPrices.map((metalData) => renderRow(metalData))}</tbody>
+        <tbody>
+          {Array.isArray(copperPrices) && copperPrices.length > 0 ? (
+            copperPrices.map((metalData) => renderRow(metalData))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center py-4 text-gray-500">
+                No price data available
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
       
       {error && (
