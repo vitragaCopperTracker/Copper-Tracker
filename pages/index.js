@@ -38,9 +38,9 @@ const home = () => {
       <Hero />
 
       {/* 3 cols  */}
-      <div className="flex justify-between flex-wrap px-3 md:px-10 lg:px-12 pt-4 pb-12 mb-7">
+      <div className="flex justify-between flex-wrap px-3 md:px-10 lg:px-12 pt-4 pb-6 mb-4">
         {/* 1  */}
-        <div className="w-full lg:w-[24%] flex flex-col space-y-14">
+        <div className="w-full lg:w-[24%] flex flex-col space-y-6">
           <div>
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Price Chart
@@ -50,7 +50,7 @@ const home = () => {
         </div>
 
         {/* 2  */}
-        <div className="w-full lg:w-[40%] flex flex-col space-y-14">
+        <div className="w-full lg:w-[40%] flex flex-col space-y-6">
           <div>
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1 mt-14 md:mt-0">
               Prices
@@ -61,7 +61,7 @@ const home = () => {
         </div>
 
         {/* 3  */}
-        <div className="w-full lg:w-[24%] flex flex-col space-y-14  ">
+        <div className="w-full lg:w-[24%] flex flex-col space-y-6  ">
           <div>
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Futures
@@ -76,16 +76,16 @@ const home = () => {
       </div>
 
       {/* 2 cols  */}
-      <div className="flex justify-between flex-wrap px-3 md:px-10 lg:px-12 py-12">
+      <div className="flex justify-between flex-wrap px-3 md:px-10 lg:px-12 py-8">
         {/* left  */}
-        <div className="w-full lg:w-[66%] flex flex-col space-y-20">
+        <div className="w-full lg:w-[66%] flex flex-col space-y-12">
           <LatestNews />
           <PressReleaseNews />
           <StockNews />
           <MostPopularNews />
         </div>
         {/* right  */}
-        <div className="w-full lg:w-[26%] space-y-20">
+        <div className="w-full lg:w-[26%] space-y-12">
           <DirectCopperPrice />
           {/* <CopperTradingviewChart /> */}
           <PopularIntradayReturn />
@@ -99,12 +99,12 @@ const home = () => {
       <MostFollowedStocksTable />
       
       {/* Stay ahead section */}
-      <div className="my-14">
+      <div className="my-8">
         <StayAhead />
       </div>
 
       {/* footer -------------------------------------------------------------------------------------------- */}
-      <div className="-mt-14">
+      <div className="-mt-8">
         <Footer />
       </div>
     </div>
