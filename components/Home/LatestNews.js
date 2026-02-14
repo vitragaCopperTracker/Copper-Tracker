@@ -383,7 +383,7 @@
 
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
-import { GENERAL_NEWS } from "@/src/api/copperAPI";
+import { GENERAL_NEWS, STOCK_NEWS } from "@/src/api/copperAPI";
 
 const LatestNews = () => {
   const [newsData, setNewsData] = useState([]);
@@ -394,7 +394,13 @@ const LatestNews = () => {
     const fetchNews = async () => {
       try {
         console.log('Fetching latest news from:', GENERAL_NEWS);
-        const response = await fetch(GENERAL_NEWS);
+        let response = await fetch(GENERAL_NEWS);
+        
+        // If general news endpoint fails, fallback to stock news
+        if (!response.ok) {
+          console.log('General news endpoint failed, trying stock news fallback');
+          response = await fetch(STOCK_NEWS);
+        }
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -404,7 +410,10 @@ const LatestNews = () => {
         console.log('Latest news data:', data);
         
         if (!data || data.length === 0) {
-          throw new Error("No news available");
+          console.log("No news available");
+          setNewsData([]);
+          setLoading(false);
+          return;
         }
 
         // Process the data to add today's date for missing dates
@@ -505,11 +514,11 @@ const LatestNews = () => {
                 />
               )}
               
-              {/* Source Badge */}
-              {newsData[0].source && (
+              {/* Source or Ticker Badge */}
+              {(newsData[0].source || newsData[0].ticker) && (
                 <div className="mb-2">
                   <span className="bg-accent text-[11px] rounded-sm text-white px-2 py-1">
-                    {newsData[0].source}
+                    {newsData[0].source || newsData[0].ticker}
                   </span>
                 </div>
               )}
@@ -524,6 +533,13 @@ const LatestNews = () => {
                   {(newsData[0].summary || newsData[0].content).length > 150 
                     ? `${(newsData[0].summary || newsData[0].content).substring(0, 150)}...`
                     : (newsData[0].summary || newsData[0].content)}
+                </p>
+              )}
+              
+              {/* Company Name (for stock news) */}
+              {newsData[0].company_name && (
+                <p className="text-[13px] text-gray-600 mb-1">
+                  {newsData[0].company_name}
                 </p>
               )}
               
@@ -552,11 +568,11 @@ const LatestNews = () => {
                 />
               )}
               <div className="flex flex-col justify-start">
-                {/* Source Badge */}
-                {news.source && (
+                {/* Source or Ticker Badge */}
+                {(news.source || news.ticker) && (
                   <div className="mb-1">
                     <span className="bg-accent text-[10px] rounded-sm text-white px-2 py-1">
-                      {news.source}
+                      {news.source || news.ticker}
                     </span>
                   </div>
                 )}
@@ -564,6 +580,13 @@ const LatestNews = () => {
                 <h3 className="text-sm font-medium text-primary line-clamp-2 text-left hover:underline">
                   {news.title}
                 </h3>
+                
+                {/* Company Name (for stock news) */}
+                {news.company_name && (
+                  <p className="text-[11px] text-gray-600 mt-1">
+                    {news.company_name}
+                  </p>
+                )}
                 
                 <p className="text-gray-500 text-xs mt-2">
                   {formatDate(news.date)}

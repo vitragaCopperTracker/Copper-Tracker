@@ -28,6 +28,12 @@ export default async function handler(req, res) {
 
     console.log(`Found ${result.rows.length} general news records`);
 
+    // If no data found, return empty array instead of error
+    if (!result.rows || result.rows.length === 0) {
+      console.log('No general news found in database');
+      return res.status(200).json([]);
+    }
+
     // Transform the data to match frontend expectations
     const generalNews = result.rows.map(row => ({
       id: row.id,
