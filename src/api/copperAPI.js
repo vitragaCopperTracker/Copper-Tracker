@@ -12,6 +12,8 @@ export const COPPER_PRICES = '/api/copper-prices';
 export const PRESS_RELEASE = '/api/press-releases';
 
 export const STOCK_NEWS = '/api/stock-news';
+export const GENERAL_NEWS = '/api/general-news/';
+
 
 export const SUBSTACKS = '/api/substacks';
 

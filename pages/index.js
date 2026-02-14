@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "@/components/Home/Hero";
+import LatestNews from "@/components/Home/LatestNews";
 import StockNews from "@/components/Home/StockNews";
 import Navbar from "@/components/Navbar";
 import PopularIntradayReturn from "@/components/Home/MostFollowed";
@@ -51,7 +52,7 @@ const home = () => {
         {/* 2  */}
         <div className="w-full lg:w-[40%] flex flex-col space-y-14">
           <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1 mt-14 md:vtrv-0">
+            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1 mt-14 md:mt-0">
               Prices
             </h1>
             <DirectHomeCopperPrice />
@@ -78,7 +79,7 @@ const home = () => {
       <div className="flex justify-between flex-wrap px-3 md:px-10 lg:px-12 py-12">
         {/* left  */}
         <div className="w-full lg:w-[66%] flex flex-col space-y-20">
-          {/* <LatestNews /> */}
+          <LatestNews />
           <PressReleaseNews />
           <StockNews />
           <MostPopularNews />

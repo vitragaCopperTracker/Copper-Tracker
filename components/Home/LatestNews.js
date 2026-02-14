@@ -383,9 +383,9 @@
 
 import React, { useState, useEffect } from "react";
 import Loader from "../Loader";
-import { GENERAL_NEWS, STOCK_NEWS } from "@/src/api/copperAPI";
+import { GENERAL_NEWS } from "@/src/api/copperAPI";
 
-// Updated: 2026-02-15 - Force deployment with general news endpoint
+// Updated: 2026-02-15 - Using ONLY general news endpoint
 const LatestNews = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -395,13 +395,7 @@ const LatestNews = () => {
     const fetchNews = async () => {
       try {
         console.log('Fetching latest news from:', GENERAL_NEWS);
-        let response = await fetch(GENERAL_NEWS);
-        
-        // If general news endpoint fails, fallback to stock news
-        if (!response.ok) {
-          console.log('General news endpoint failed, trying stock news fallback');
-          response = await fetch(STOCK_NEWS);
-        }
+        const response = await fetch(GENERAL_NEWS);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
