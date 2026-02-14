@@ -57,7 +57,7 @@ const home = () => {
             </h1>
             <DirectHomeCopperPrice />
           </div>
-          <PlainNews />
+          {/* <PlainNews /> */}
         </div>
 
         {/* 3  */}
