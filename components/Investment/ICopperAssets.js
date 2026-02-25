@@ -15,6 +15,8 @@ const ICopperAssets = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState("Company Name");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [hoveredNote, setHoveredNote] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   // Get unique values for filters
   const uniqueOptions = useMemo(() => {
@@ -268,7 +270,20 @@ const ICopperAssets = () => {
                     <td className="px-4 py-[12px]">
                       {asset["Secondary Assets"] || "N/A"}
                     </td>
-                    <td className="px-4 py-[12px] max-w-[300px] truncate" title={asset["Notes"]}>
+                    <td 
+                      className="px-4 py-[12px] max-w-[300px] truncate relative cursor-help"
+                      onMouseEnter={(e) => {
+                        if (asset["Notes"]) {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          setHoveredNote(asset["Notes"]);
+                          setTooltipPosition({
+                            x: rect.left + rect.width / 2,
+                            y: rect.top - 10
+                          });
+                        }
+                      }}
+                      onMouseLeave={() => setHoveredNote(null)}
+                    >
                       {asset["Notes"] || "N/A"}
                     </td>
                   </tr>
@@ -276,6 +291,30 @@ const ICopperAssets = () => {
               </tbody>
             </table>
           </div>
+
+          {/* Tooltip for Notes */}
+          {hoveredNote && (
+            <div 
+              className="fixed z-50 bg-gray-900 text-white text-sm p-4 rounded-lg shadow-xl max-w-md"
+              style={{
+                left: `${tooltipPosition.x}px`,
+                top: `${tooltipPosition.y}px`,
+                transform: 'translate(-50%, -100%)',
+                pointerEvents: 'none'
+              }}
+            >
+              <div className="relative">
+                <div className="whitespace-pre-wrap break-words">
+                  {hoveredNote}
+                </div>
+                {/* Arrow pointing down */}
+                <div 
+                  className="absolute left-1/2 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-gray-900"
+                  style={{ transform: 'translateX(-50%)' }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Pagination */}
           <div className="flex justify-between items-center mt-6">
