@@ -37,80 +37,83 @@ const home = () => {
 
       <Hero />
 
-      {/* 3 cols  */}
-      <div className="flex flex-col lg:flex-row justify-between gap-6 px-3 md:px-10 lg:px-12 py-8 mb-8">
-        {/* 1  */}
-        <div className="w-full lg:w-[24%] flex flex-col space-y-6">
-          <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              Copper Price Chart
-            </h1>
-            <TVCopperCFD />
-          </div>
-        </div>
+      {/* part1 */}
 
-        {/* 2  */}
-        <div className="w-full lg:w-[40%] flex flex-col space-y-6">
-          <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              Prices
-            </h1>
-            <DirectHomeCopperPrice />
-          </div>
-          <div>
-            <div className="flex justify-between items-center mb-3 border-b border-black/10 pb-1">
-              <h1 className="text-[21px] cambay font-bold">
-                Recent Canadian Company Insider Transactions
+      <div className="flex flex-col lg:flex-row justify-between gap-6 px-3 md:px-10 lg:px-12 ">
+        {/* 1  */}
+        <div className="w-full flex flex-col gap-6 ">
+          <div className="flex flex-col md:flex-row gap-6 mr-5">
+            {/* graph  */}
+            <div className="w-full border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
+              <h1 className="text-[21px] font-bold mb-2 pb-1">
+                Copper Price Chart
               </h1>
-              <a 
-                href="/investments" 
-                className="text-sm text-accent hover:text-accent/80 transition-colors"
-              >
-                view all
-              </a>
+              <TVCopperCFD />
             </div>
+            {/* table  */}
+            <div className="bg-white border border-black/10 rounded-lg pt-3 pl-3 pb-2">
+              <h1 className="text-[21px] cambay font-bold mb-2">Prices</h1>
+              <DirectHomeCopperPrice />
+            </div>
+          </div>
+          <div className="border border-black/10 rounded-xl p-3 mr-2">
+            <h1 className="text-[21px] cambay font-bold mb-2  pb-1">
+              Recent Activities
+            </h1>
             <HomeInsiderTransactions />
           </div>
-        </div>
-
-        {/* 3  */}
-        <div className="w-full lg:w-[24%] flex flex-col space-y-6">
           <div>
+            <LatestNews />
+          </div>
+        </div>
+        {/* 2  */}
+        <div className="w-full lg:w-[24%] flex flex-col space-y-6">
+          <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
+            <DirectCopperPrice />
+          </div>
+          <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
             <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Futures
             </h1>
             <TVCopper />
           </div>
-
           <Substacks />
-
           <DailyNewsletterAd />
         </div>
       </div>
 
-      {/* 2 cols  */}
-      <div className="flex flex-col lg:flex-row justify-between gap-6 px-3 md:px-10 lg:px-12 py-8 mb-8">
+      {/* part2  */}
+      <div className="px-3 md:px-10 lg:px-12">
         {/* left  */}
-        <div className="w-full lg:w-[66%] flex flex-col space-y-12">
-          <LatestNews />
-          <PressReleaseNews />
-          <StockNews />
-          <MostPopularNews />
-        </div>
-        {/* right  */}
-        <div className="w-full lg:w-[26%] space-y-12">
-          <DirectCopperPrice />
-          {/* <CopperTradingviewChart /> */}
-          <PopularIntradayReturn />
-          <PopularTools />
-          {/* <DailyNewsletterAd /> */}
-          {/* <Substacks /> */}
+        <div className="w-full flex flex-col space-y-12">
+          <div className="border border-white/10"></div>
+          <div className="grid grid-cols-1 md:grid-cols-9 gap-8">
+            <div className="md:col-span-6">
+              <PressReleaseNews />
+            </div>
+            <div className="md:col-span-3 flex flex-col gap-4 ">
+              <PopularTools />
+              <DailyNewsletterAd />
+            </div>
+          </div>
+
+          <div className="flex flex-col w-full gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-9 gap-8">
+              <div className="md:col-span-6">
+                <StockNews />
+              </div>
+              <div className="md:col-span-3">
+                <PopularIntradayReturn />
+              </div>
+            </div>
+            <MostPopularNews />
+          </div>
         </div>
       </div>
-      
+
       {/* Most Followed Stocks Table */}
       <MostFollowedStocksTable />
-      
+
       {/* Stay ahead section */}
       <div className="mb-8">
         <StayAhead />
