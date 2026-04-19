@@ -1,5 +1,6 @@
 import React from "react";
 import * as styles from "./styles";
+import TcrcChart from "./Charts/TcRcChart";
 
 const GlobalStyles = () => (
   <style>{`
@@ -12,7 +13,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-const Treatment = () => {
+const TCRC = () => {
   const timeline = [
     {
       yr: "2022 — TC/RC: $65/t | Normal market",
@@ -69,15 +70,7 @@ const Treatment = () => {
                   Concentrate scarce
                 </span>
               </div>
-              <canvas
-                id="tcrcChart"
-                height="200"
-                style={{
-                  width: "100%",
-                  background: "rgba(26,26,46,0.02)",
-                  borderRadius: "8px",
-                }}
-              ></canvas>
+              <TcrcChart />
               <p style={styles.csrc}>
                 Source: SMM annual benchmark negotiations · CRU Group ·
                 Fastmarkets · Published after annual Copper-to-the-World
@@ -96,6 +89,7 @@ const Treatment = () => {
               </div>
               <div style={{ padding: "4px 0" }}>
                 <div style={styles.tlWrap}>
+                  <div style={styles.tlLine} />
                   {timeline.map((item, i) => (
                     <div key={i} style={styles.tlItem}>
                       <div
@@ -139,4 +133,4 @@ const Treatment = () => {
   );
 };
 
-export default Treatment;
+export default TCRC;

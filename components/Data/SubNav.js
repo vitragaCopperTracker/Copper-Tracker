@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as styles from "./styles";
 
 const GlobalStyles = () => (
@@ -15,8 +15,10 @@ const GlobalStyles = () => (
 );
 
 const SubNav = () => {
+  const [activeSection, setActiveSection] = React.useState("prices");
+
   const navItems = [
-    { name: "Prices", id: "prices", active: true },
+    { name: "Prices", id: "prices" },
     { name: "Inventory", id: "inventory" },
     { name: "TC/RCs", id: "tcrcs" },
     { name: "Dr. Copper & Macro", id: "macro" },
@@ -32,6 +34,27 @@ const SubNav = () => {
     { name: "FAQ", id: "faq" },
   ];
 
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-40% 0px -50% 0px",
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <GlobalStyles />
@@ -40,17 +63,15 @@ const SubNav = () => {
           {navItems.map((item) => (
             <button
               key={item.id}
+              onClick={() => {
+                document.getElementById(item.id)?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
               style={{
                 ...styles.sn,
-                ...(item.active ? styles.snOn : {}),
-              }}
-              onMouseEnter={(e) => {
-                if (!item.active)
-                  Object.assign(e.currentTarget.style, styles.snHover);
-              }}
-              onMouseLeave={(e) => {
-                if (!item.active)
-                  Object.assign(e.currentTarget.style, styles.sn);
+                ...(activeSection === item.id ? styles.snOn : {}),
               }}
             >
               {item.name}

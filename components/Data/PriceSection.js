@@ -1,5 +1,6 @@
 import React from "react";
 import * as styles from "./styles";
+import CuHistChart from "./Charts/HistoricalPriceChart";
 
 const GlobalStyles = () => (
   <style>{`
@@ -19,7 +20,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-const LivePrices = () => {
+const PriceSection = () => {
   const stats = [
     {
       label: "COMEX spot",
@@ -106,7 +107,11 @@ const LivePrices = () => {
   return (
     <>
       <GlobalStyles />
-      <section style={{ ...styles.sec, ...styles.secAlt }} id="prices">
+      <section
+        className=""
+        style={{ ...styles.sec, ...styles.secAlt }}
+        id="prices"
+      >
         <div style={styles.w} className="w-res">
           <p style={styles.slbl}>Section A · Live prices & charts</p>
           <h2 style={styles.stitle}>
@@ -273,7 +278,10 @@ const LivePrices = () => {
             </div>
           </div>
 
-          <div style={{ ...styles.cb, ...styles.gap }}>
+          <div
+            className="w-full h-fit sm:h-[400px] md:h-[500px] xl:h-full"
+            style={{ ...styles.cb, ...styles.gap }}
+          >
             <div style={styles.ch}>
               <div>
                 <p style={styles.cl}>FRED PCOPPUSDM · Monthly</p>
@@ -284,15 +292,8 @@ const LivePrices = () => {
               </div>
               <span style={styles.bCu}>26-year view</span>
             </div>
-            <canvas
-              id="cuHistChart"
-              height="160"
-              style={{
-                width: "100%",
-                background: "rgba(26,26,46,0.02)",
-                borderRadius: "8px",
-              }}
-            ></canvas>
+
+            <CuHistChart />
             <p style={styles.csrc}>
               Source: FRED series PCOPPUSDM (IMF monthly averages)
             </p>
@@ -349,4 +350,4 @@ const LivePrices = () => {
   );
 };
 
-export default LivePrices;
+export default PriceSection;
