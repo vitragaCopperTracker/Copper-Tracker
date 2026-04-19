@@ -1,5 +1,5 @@
 
-# copper_frontend
+# copper_frontend.
 
 ## Getting Started
 
