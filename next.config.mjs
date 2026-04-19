@@ -27,7 +27,9 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: false,
+    // ESLint 9 + eslint-config-next 16 produces a circular JSON serialization
+    // error during builds. Linting still runs locally via `npm run lint`.
+    ignoreDuringBuilds: true,
   },
   // Disable static optimization for dynamic pages
   output: 'standalone',
