@@ -88,7 +88,7 @@ const ICopperAssets = () => {
   return (
     <div className="py-5">
       <h1 className="cambay text-[22px] sm:text-3xl font-semibold">
-        Copper Assets Database
+        Copper Assets Database 
       </h1>
       
       <div className="mt-1 md:mt-5">
