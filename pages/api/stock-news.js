@@ -10,8 +10,7 @@ export default async function handler(req, res) {
     
     // Query to fetch stock news from our database
     const result = await query(`
-      SELECT 
-        id,
+      SELECT
         ticker,
         company_name,
         exchange,
@@ -33,7 +32,7 @@ export default async function handler(req, res) {
 
     // Transform the data to match frontend expectations
     const stockNews = result.rows.map(row => ({
-      id: row.id,
+      // id: row.id,
       ticker: row.ticker,
       company_name: row.company_name,
       exchange: row.exchange,
