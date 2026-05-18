@@ -11,7 +11,7 @@ const Glossary = () => {
         title="Copper Glossary - Copper Industry Terms & Definitions"
         description="Comprehensive glossary of copper industry terms, definitions, and technical vocabulary. Learn about copper mining, processing, alloys, and market terminology."
         keywords="copper glossary, copper terms, copper definitions, copper industry vocabulary, metal terminology, copper alloys, mining terms"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/copper101/glossary"
+        canonicalUrl="/copper101/glossary"
       />
       <Navbar />
       <C101Breadcrumb link="/copper101/glossary" title="Copper Glossary" />

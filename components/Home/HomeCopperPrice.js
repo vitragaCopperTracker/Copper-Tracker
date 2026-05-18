@@ -36,8 +36,8 @@ const HomeCopperPrice = () => {
     return <div className="text-center py-4">Loading...</div>;
   }
 
-  if (error) {
-    return <div className="text-center py-4 text-red-500">Error: {error}</div>;
+  if (error || copperPrices.length === 0) {
+    return null;
   }
 
   const formatValue = (value) => {

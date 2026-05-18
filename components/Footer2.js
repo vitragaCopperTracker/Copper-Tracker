@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { MdEmail } from "react-icons/md";
+import { CONTACT_EMAIL } from "@/src/constants";
 
 const Footer2 = () => {
   return (
@@ -11,7 +12,7 @@ const Footer2 = () => {
           {/* Added margin-bottom (mb-6) for spacing */}
           <Image
             className="" // Adjusting size for different screens
-            src="/logo.jpg"
+            src="/logo.png"
             alt="Logo"
             width={140} // Adjust as per image dimensions
             height={10}
@@ -23,7 +24,7 @@ const Footer2 = () => {
         <div className="flex flex-wrap justify-center items-center space-x-2 text-sm md:text-base">
           <MdEmail className="text-lg md:text-xl" />{" "}
           {/* Icon size adjusts with screen */}
-          <span>info@pgmtracker.com</span>
+          <a href={`mailto:${CONTACT_EMAIL}`} className="hover:underline">{CONTACT_EMAIL}</a>
         </div>
 
         {/* Divider */}

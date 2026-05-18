@@ -51,7 +51,7 @@
 //       <div className="container mx-auto px-4 lg:px-10 py-5 flex justify-between items-center md:flex md:space-x-7">
 //         {/* Logo */}
 //         <Image
-//           src="/logo.jpg"
+//           src="/logo.png"
 //           alt="Logo"
 //           width={50}
 //           height={50}
@@ -211,10 +211,10 @@ const Navbar = () => {
       <div className="container mx-auto px-4 xl:px-10 py-5 flex justify-between items-center">
         {/* Logo */}
         <Image
-          src="/logo.jpg"
+          src="/logo.png"
           alt="Logo"
-          width={50}
-          height={50}
+          width={70}
+          height={70}
           className="cursor-pointer ml-3 scale-[1.9] xl:ml-7"
           onClick={() => navigateTo("/")}
         />

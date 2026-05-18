@@ -50,7 +50,7 @@ const ResetPassword = () => {
         title="Reset Password - Recover Access"
         description="Enter your email to receive a password reset link and regain access to your account securely."
         keywords="forgot password, password reset, recover account, secure login, reset link, account recovery"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/auth/forgot-password"
+        canonicalUrl="/auth/forgot-password"
       />
 
       <main className="flex-grow mt-">

@@ -69,9 +69,9 @@ const StayAhead = () => {
         {/* Left Section - Subscription */}
         <div className="md:w-2/6 sm:p-8 rounded-lg flex flex-col justify-between">
           <div>
-            <h1 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-6 cambay text-white">
+            <h2 className="text-xl sm:text-3xl font-bold mb-3 sm:mb-6 cambay text-white">
               Stay ahead with real-time Copper news, price and analysis
-            </h1>
+            </h2>
             <p className="text-sm text-white/80 font-medium mb-4 sm:mb-8">
               See the latest Copper data
             </p>

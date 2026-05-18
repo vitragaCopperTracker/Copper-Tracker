@@ -29,10 +29,10 @@ const Data = () => {
   return (
     <div>
       <SEO
-        title="Copper Market Data - Price Trends, Supply & Demand Insights"
-        description="Access comprehensive Copper market data, including price trends, supply and demand metrics, and industry analysis. Our detailed datasets provide the insights you need for informed decision-making in the Copper market."
-        keywords="Copper market data, price trends, Copper supply and demand, industry analysis, Copper research, market insights, Copper and Copper Alloys, data analytics"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/data"
+        title="Copper Price Today: COMEX HG & LME Charts, Inventory & Data"
+        description="Live copper prices: COMEX $5.80/lb · LME $12,780/t. Inventory levels, TC/RC data, supply & demand metrics, mine production, and price history from 2000 to present."
+        keywords="copper price today, COMEX copper price, LME copper price, copper inventory, copper TC RC, copper supply demand, copper market data"
+        canonicalUrl="/data"
       />
       <Navbar />
       <Breadcrumbs />

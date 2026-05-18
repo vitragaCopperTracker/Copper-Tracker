@@ -70,7 +70,7 @@ const ChartSubpage = () => {
         title={`${chart.title} - Data Supply & Market Insights`}
         description={chart.description}
         keywords="data, supply, market insights, price trends, investment data, financial charts, stock analysis"
-        canonicalUrl={`https://musical-panda-75f15d.netlify.app/DataSupply/${chart.id}`}
+        canonicalUrl={`/DataSupply/${chart.id}`}
       />
       <DataBreadcrumb title={chart.title} />
       <div className="px-6 py-10 md:px-20 mt-14 mb-10">

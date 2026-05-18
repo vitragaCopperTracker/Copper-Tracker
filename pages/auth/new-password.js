@@ -55,7 +55,7 @@ const NewPassword = () => {
         title="Update Password - Recover Your Account"
         description="Forgot your password? Update it now to regain access to your account securely."
         keywords="reset password, password recovery, forgot password, account access, secure login, recover account,new passowrd"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/auth/new-password"
+        canonicalUrl="/auth/new-password"
       />
       <motion.div
         initial={{ opacity: 0, y: 20 }}

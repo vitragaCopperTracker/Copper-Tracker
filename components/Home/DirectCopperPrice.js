@@ -122,20 +122,7 @@ const DirectCopperPrice = () => {
   }
 
   if (!copperData) {
-    return (
-      <div className="text-center">
-        <h2 className="flex text-[21px] md:text-[16px] lg:text-[21px] cambay font-bold text-black1/80 capitalize border-b border-black1/20 pb-2 mb-6 lg:mb-4">
-          Live Copper Price
-        </h2>
-        <div className="text-center py-8 text-red-500">
-          <p>CME copper spot price data unavailable</p>
-          <p className="text-sm text-gray-600 mt-2">
-            Real-time data only - no fallback data
-          </p>
-          {error && <p className="text-xs text-red-400 mt-2">Error: {error}</p>}
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const { price, price_change, price_change_percent, source, note } =

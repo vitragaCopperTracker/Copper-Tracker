@@ -24,7 +24,7 @@
 //       <div className="p-4 lg:p-[22.8px] bg-gradient-to-r from-accent/80 to-accent flex-shrink-0">
 //         <div className="flex items-center space-x-3">
 //           <MdSpaceDashboard className="text-white text-2xl" />
-//           <h1 className="text-xl font-bold text-white">Platinum Tracker</h1>
+//           <h1 className="text-xl font-bold text-white">Copper Tracker</h1>
 //         </div>
 //       </div>
 //       <nav className="flex-1 flex flex-col justify-between overflow-y-auto py-6">
@@ -96,7 +96,7 @@ const Sidebar = ({
       >
         <div className="flex items-center space-x-3">
           <MdSpaceDashboard className="text-white text-2xl" />
-          <h1 className="text-xl font-bold text-white">Platinum Tracker</h1>
+          <h1 className="text-xl font-bold text-white">Copper Tracker</h1>
         </div>
       </div>
       <nav className="flex-1 flex flex-col justify-between overflow-y-auto py-6">

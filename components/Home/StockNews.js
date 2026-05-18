@@ -40,9 +40,9 @@
 //   if (validNewsData.length === 0) {
 //     return (
 //       <div>
-//         <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+//         <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
 //           Platinum Stock News
-//         </h1>
+//         </h2>
 //         <div className="text-center py-12 text-gray-600">
 //           No news available at this time
 //         </div>
@@ -55,9 +55,9 @@
 
 //   return (
 //     <div>
-//       <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+//       <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
 //         Platinum Stock News
-//       </h1>
+//       </h2>
 
 //       <div className="grid grid-cols-1 md:grid-cols-9 gap-6">
 //         {/* Featured News Section */}
@@ -200,9 +200,9 @@ const StockNews = () => {
   if (loading) {
     return (
       <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3">
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Stock News
-        </h1>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-8 gap-6 gap-x-8">
           <div className="col-span-4">
@@ -262,9 +262,9 @@ const StockNews = () => {
   if (error) {
     return (
       <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3">
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Stock News
-        </h1>
+        </h2>
         <div className="text-center py-8 text-red-500">
           Error loading stock news: {error}
         </div>
@@ -279,9 +279,9 @@ const StockNews = () => {
   if (validNewsData.length === 0) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Stock News
-        </h1>
+        </h2>
         <div className="text-center py-12 text-gray-600">
           No stock news available at this time
         </div>
@@ -294,9 +294,9 @@ const StockNews = () => {
 
   return (
     <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3 pb-7">
-      <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+      <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
         Copper Stock News
-      </h1>
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-8 gap-6 gap-x-8">
         {/* Featured News Section */}

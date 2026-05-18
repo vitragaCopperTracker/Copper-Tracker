@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as s from "./styles";
+import { COPPER_SPOT_PRICE_LB } from "@/src/constants";
 
 const CopperCalculator = () => {
   const [weight, setWeight] = useState(1);
   const [unit, setUnit] = useState(1);
   const [grade, setGrade] = useState(1);
-  const [result, setResult] = useState(5.8);
-  const spotPrice = 5.8;
+  const [result, setResult] = useState(COPPER_SPOT_PRICE_LB);
+  const spotPrice = COPPER_SPOT_PRICE_LB;
 
   useEffect(() => {
     const calculatedValue = weight * unit * grade * spotPrice;
@@ -157,10 +158,73 @@ const CopperCalculator = () => {
                 fontSize: "13px",
                 fontWeight: 700,
                 color: s.tokens.ink,
-                marginBottom: "16px",
+                marginBottom: "10px",
               }}
             >
-              Unit Conversion Reference
+              Price Conversions
+            </p>
+            <table
+              style={{
+                width: "100%",
+                fontSize: "12px",
+                borderCollapse: "collapse",
+                marginBottom: "20px",
+              }}
+            >
+              <thead>
+                <tr style={{ borderBottom: `2px solid ${s.tokens.bdr}` }}>
+                  {["From", "To $/lb", "To $/tonne"].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        padding: "6px 10px",
+                        textAlign: "left",
+                        fontSize: "10px",
+                        color: s.tokens.muted,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["$5.80/lb", "—", "$12,787/t"],
+                  ["$12,787/t", "$5.80/lb", "—"],
+                ].map(([from, toLb, toT], i) => (
+                  <tr
+                    key={i}
+                    style={{ borderBottom: "1px solid rgba(26,26,46,0.05)" }}
+                  >
+                    {[from, toLb, toT].map((v, j) => (
+                      <td
+                        key={j}
+                        style={{
+                          padding: "7px 10px",
+                          fontFamily: '"DM Mono", monospace',
+                          color: j === 0 ? s.tokens.cuD : undefined,
+                        }}
+                      >
+                        {v}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <p
+              style={{
+                fontSize: "13px",
+                fontWeight: 700,
+                color: s.tokens.ink,
+                marginBottom: "10px",
+              }}
+            >
+              Weight Conversions
             </p>
             <table
               style={{
@@ -171,184 +235,51 @@ const CopperCalculator = () => {
             >
               <thead>
                 <tr style={{ borderBottom: `2px solid ${s.tokens.bdr}` }}>
-                  <th
-                    style={{
-                      padding: "6px 10px",
-                      textAlign: "left",
-                      fontSize: "10px",
-                      color: s.tokens.muted,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    From
-                  </th>
-                  <th
-                    style={{
-                      padding: "6px 10px",
-                      textAlign: "left",
-                      fontSize: "10px",
-                      color: s.tokens.muted,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    To $/lb
-                  </th>
-                  <th
-                    style={{
-                      padding: "6px 10px",
-                      textAlign: "left",
-                      fontSize: "10px",
-                      color: s.tokens.muted,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    To $/tonne
-                  </th>
+                  {["Unit", "In lbs", "In kg"].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        padding: "6px 10px",
+                        textAlign: "left",
+                        fontSize: "10px",
+                        color: s.tokens.muted,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  style={{ borderBottom: "1px solid rgba(26, 26, 46, 0.05)" }}
-                >
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                      color: s.tokens.cuD,
-                    }}
+                {[
+                  ["1 metric tonne", "2,204.62 lbs", "1,000 kg"],
+                  ["1 short ton (US)", "2,000 lbs", "907.2 kg"],
+                  ["1 pound (lb)", "—", "0.4536 kg"],
+                  ["1 troy oz", "0.0686 lbs", "31.10 g"],
+                ].map(([unit, lbs, kg], i, arr) => (
+                  <tr
+                    key={i}
+                    style={
+                      i < arr.length - 1
+                        ? { borderBottom: "1px solid rgba(26,26,46,0.05)" }
+                        : {}
+                    }
                   >
-                    $5.80/lb
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    —
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    $12,787/t
-                  </td>
-                </tr>
-                <tr
-                  style={{ borderBottom: "1px solid rgba(26, 26, 46, 0.05)" }}
-                >
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    $12,787/t
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    $5.80/lb
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    —
-                  </td>
-                </tr>
-                <tr
-                  style={{ borderBottom: "1px solid rgba(26, 26, 46, 0.05)" }}
-                >
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    1 metric tonne
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    2,204.62 lbs
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    1,000 kg
-                  </td>
-                </tr>
-                <tr
-                  style={{ borderBottom: "1px solid rgba(26, 26, 46, 0.05)" }}
-                >
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    1 short ton (US)
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    2,000 lbs
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    0.9072 tonnes
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    1 troy oz (ref)
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    $0.40
-                  </td>
-                  <td
-                    style={{
-                      padding: "7px 10px",
-                      fontFamily: '"DM Mono", monospace',
-                    }}
-                  >
-                    $12.78/kg
-                  </td>
-                </tr>
+                    {[unit, lbs, kg].map((v, j) => (
+                      <td
+                        key={j}
+                        style={{
+                          padding: "7px 10px",
+                          fontFamily: '"DM Mono", monospace',
+                        }}
+                      >
+                        {v}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </tbody>
             </table>
             <p

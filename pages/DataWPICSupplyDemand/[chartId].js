@@ -114,7 +114,7 @@ const ChartSubpage = () => {
         title={`${chart.title} - WPIC Supply Demand Estimates & Market Insights`}
         description={chart.description}
         keywords="data, wpic, supply ,demand,supply, market insights, price trends, investment data, financial charts, stock analysis"
-        canonicalUrl={`https://musical-panda-75f15d.netlify.app/DataWPICSupplyDemand/${chart.id}`}
+        canonicalUrl={`/DataWPICSupplyDemand/${chart.id}`}
       />
       <div className="px-6 py-10 md:px-20 mt-14 mb-10">
         <h1 className="text-2xl font-bold">{chart.title}</h1>

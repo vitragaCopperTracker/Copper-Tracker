@@ -64,15 +64,16 @@ const InvestmentHero = () => {
 
             <p className="text-sm md:text-base mb-10">
               Discover the potential of Copper investments through our
-              comprehensive range of investment options. From physical Copper to
-              ETFs and mining stocks, we offer diverse ways to incorporate this
-              precious metal into your portfolio.
+              comprehensive range of investment options. From copper ETFs to
+              mining stocks and insider transactions, we offer diverse ways to
+              gain exposure to this critical industrial metal driving the
+              electrification and energy transition boom.
             </p>
 
             <div className="text-xs text-gray-300">
               <p className="text-gray-300">
-                Secure your financial future with timeless value and strategic
-                investments.
+                Position your portfolio at the center of the AI infrastructure,
+                EV, and clean energy buildout — all driven by copper demand.
               </p>
             </div>
           </div>

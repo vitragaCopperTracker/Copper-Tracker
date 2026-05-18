@@ -278,42 +278,7 @@ const MostFollowed = () => {
   };
 
   if (loading) {
-    return (
-      <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3">
-        <table className="w-full text-left text-sm font-sans">
-          <thead>
-            <tr>
-              <th className="pb-2 text-xs font-medium text-black1/60">
-                COMPANY
-              </th>
-              <th className="pb-2 text-xs font-medium text-black1/60 text-right">
-                PRICE
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: 10 }).map((_, index) => (
-              <tr key={index} className="border-b border-gray-200">
-                {/* Company column */}
-                <td className="py-3">
-                  <div className="h-4 w-16 bg-gray-200 rounded animate-pulse mb-1" />
-                  <div className="h-3.5 w-28 bg-gray-100 rounded animate-pulse" />
-                </td>
-
-                <td className="py-2 text-right flex flex-col items-end">
-                  <div className="h-4 w-14 bg-gray-200 rounded animate-pulse mb-1" />
-                  <div className="h-3.5 w-10 bg-gray-100 rounded animate-pulse" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="mt-2 text-left">
-          <div className="h-3.5 w-20 bg-gray-200 rounded animate-pulse" />
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (

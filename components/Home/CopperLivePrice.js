@@ -43,26 +43,8 @@ const CopperLivePrice = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="text-center">
-        <h2 className="flex text-[21px] md:text-[16px] lg:text-[21px] cambay font-bold text-black1/80 capitalize border-b border-black1/20 pb-2 mb-6 lg:mb-4"></h2>
-        <div className="text-center py-8 text-red-500">
-          Error loading copper price: {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (!copperData) {
-    return (
-      <div className="text-center">
-        <h2 className="flex text-[21px] md:text-[16px] lg:text-[21px] cambay font-bold text-black1/80 capitalize border-b border-black1/20 pb-2 mb-6 lg:mb-4"></h2>
-        <div className="text-center py-8 text-gray-500">
-          No copper price data available
-        </div>
-      </div>
-    );
+  if (error || !copperData) {
+    return null;
   }
 
   const copperSpotPrice = parseFloat(copperData.price || 0).toFixed(2);
@@ -79,10 +61,10 @@ const CopperLivePrice = () => {
       </h2>
 
       <div className="bg-accent/30 p-3 md:p-2 lg:p-3 py-4 w-full border border-accent/30 rounded-md flex justify-between items-center">
-        <div className="h-8 md:h-6 lg:h-8">
+        <div className="h-10 md:h-10 lg:h-10">
           <img
-            className="w-16 md:w-10 2xl:w-26 h-10 md:h-6 lg:h-10 sm:h-10 sm:w-28"
-            src="/logo.jpg"
+            className="w-28 md:w-28 lg:w-32 h-10 md:h-10 lg:h-10 object-contain"
+            src="/logo.png"
             alt="Copper Tracker Logo"
           />
         </div>

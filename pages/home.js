@@ -28,9 +28,9 @@ const home = () => {
         {/* 1  */}
         <div className="w-full lg:w-[24%] flex flex-col space-y-6">
           <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
+            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Price Chart
-            </h1>
+            </h2>
             <TVCopperCFD />
           </div>
           <DailyNewsletterAd />
@@ -39,16 +39,16 @@ const home = () => {
         {/* 2  */}
         <div className="w-full lg:w-[40%] flex flex-col space-y-6">
           <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
+            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Prices
-            </h1>
+            </h2>
             <HomeCopperPrice />
           </div>
           <div>
             <div className="flex justify-between items-center mb-3 border-b border-black/10 pb-1">
-              <h1 className="text-[21px] cambay font-bold">
+              <h2 className="text-[21px] cambay font-bold">
                 Recent Canadian Company Insider Transactions
-              </h1>
+              </h2>
               <a
                 href="/investments"
                 className="text-sm text-accent hover:text-accent/80 transition-colors"
@@ -64,9 +64,9 @@ const home = () => {
         {/* 3  */}
         <div className="w-full lg:w-[24%] flex flex-col space-y-6">
           <div>
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
+            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Futures
-            </h1>
+            </h2>
             <TVCopper />
           </div>
           <Substacks />
@@ -144,21 +144,21 @@ export default home;
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Platinum Price Chart
-//             </h1>
+//             </h2>
 //             <TVPlatinum />
 //           </div>
 
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Iridium Price Chart
-//             </h1>
+//             </h2>
 //             <ChartIridium />
 //           </div>
 
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Rhodium Price Chart
-//             </h1>
+//             </h2>
 //             <ChartRhodium />
 //           </div>
 //           <div className="hidden lg:block">
@@ -171,7 +171,7 @@ export default home;
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Prices
-//             </h1>
+//             </h2>
 //             <HomeCopperPrice />
 //           </div>
 //           <PlainNews />
@@ -185,13 +185,13 @@ export default home;
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Palladium Price Chart
-//             </h1>
+//             </h2>
 //             <TVPalladium />
 //           </div>
 //           <div>
 //             <h1 className="text-[18px] sm:text-[20px] md:text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
 //               Ruthenium Price Chart
-//             </h1>
+//             </h2>
 //             <ChartRuthenium />
 //           </div>
 //           <Substacks />

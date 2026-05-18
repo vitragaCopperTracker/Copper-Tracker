@@ -42,7 +42,7 @@ const DashboardLayout = () => {
         title="Dashboard - Stock Screener, Watchlist, Market News & More"
         description="Access a powerful stock screener, manage your watchlist, stay updated with market news, and analyze stock trends with our advanced dashboard."
         keywords="dashboard, stock screener, watchlist, stock market, stock analysis, financial news, market trends, investment tools"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/dashboard"
+        canonicalUrl="/dashboard"
       />
       <div className="flex h-full">
         {/* Mobile Sidebar Overlay */}

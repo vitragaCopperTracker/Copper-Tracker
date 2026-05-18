@@ -58,9 +58,9 @@ const PressRelease = () => {
     return (
       <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 w-full">
         {/* Heading */}
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Company Press Release
-        </h1>
+        </h2>
 
         {/* Press Release Layout */}
         <div className="">
@@ -98,9 +98,9 @@ const PressRelease = () => {
   if (error) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Company Press Release
-        </h1>
+        </h2>
         <div className="text-center py-8 text-red-500">
           Error loading press releases: {error}
         </div>
@@ -111,9 +111,9 @@ const PressRelease = () => {
   if (pressReleases.length === 0) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
+        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
           Copper Company Press Release
-        </h1>
+        </h2>
         <div className="text-center py-8 text-gray-500">
           No press releases available at this time
         </div>
@@ -124,9 +124,9 @@ const PressRelease = () => {
   return (
     <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3">
       {/* Heading */}
-      <h1 className="text-[21px] cambay font-bold mb-6 border-b border-black/10 pb-2">
+      <h2 className="text-[21px] cambay font-bold mb-6 border-b border-black/10 pb-2">
         Copper Company Press Release
-      </h1>
+      </h2>
 
       {/* Press Release Layout */}
       <div className="">

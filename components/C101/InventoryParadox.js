@@ -51,8 +51,8 @@ export default function InventoryParadox() {
         <strong style={style.pStrong}>geographically relocated</strong>, not
         genuinely overproduced. Starting in late 2025, traders began moving
         copper to COMEX-approved warehouses in the US ahead of the Section 232
-        tariffs. On April 2, 2026, President Trump issued a proclamation
-        formalizing 50% tariffs on copper articles, effective April 6. This
+        tariffs. On April 2, 2026, the US formalized 50% tariffs on copper
+        articles, effective April 6. This
         explains why COMEX stocks hit record highs: if refined copper was
         already in the US before the deadline, it avoided the massive new tax.
       </p>

@@ -45,7 +45,7 @@ const VerifyEmail = () => {
         title="Verify Email - Confirm Your Account"
         description="Please verify your email to complete the registration process and access your account."
         keywords="verify email, email confirmation, account verification, email authentication, registration, confirmation link"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/auth/verify-email"
+        canonicalUrl="/auth/verify-email"
       />
 
       <motion.div

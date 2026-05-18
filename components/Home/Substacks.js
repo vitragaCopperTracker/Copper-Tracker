@@ -44,7 +44,15 @@ const Substacks = () => {
         const response = await fetch(SUBSTACKS);
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorText = await response.text().catch(() => "");
+          const message = errorText
+            ? `HTTP ${response.status}: ${errorText}`
+            : `HTTP error! status: ${response.status}`;
+          console.error("Substacks request failed:", message);
+          setError(message);
+          setSubstackPosts([]);
+          setLoading(false);
+          return;
         }
 
         const data = await response.json();
@@ -77,78 +85,8 @@ const Substacks = () => {
     fetchSubstacks();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="border border-black/10 rounded-lg pt-3 pb-1 pl-3 pr-3 ">
-        <h2 className="flex items-center text-[19px] md:text-[21px] font-bold cambay border-b border-gray-300 pb-1 mb-3">
-          Copper Substacks
-        </h2>
-        <div className="flex flex-col gap-7 md:gap-8 2xl:gap-3">
-          <div className="flex justify-center items-center h-32">
-            <div className="flex flex-col gap-2 flex-grow">
-              <p className="text-xs font-semibold text-accent mb-1">Substack</p>
-              <h3 className="text-md bg-black/40 w-40 h-6 animate-pulse rounded-md"></h3>
-              <p className="text-sm bg-black/40 w-44 md:w-3/4 h-12 animate-pulse rounded-md"></p>
-              <span className="text-xs bg-black/40 w-10 h-2 animate-pulse rounded-md"></span>
-            </div>
-            <span className="ml-3 text-gray-800 w-20 h-16 bg-black/40 animate-pulse rounded-lg"></span>
-          </div>
-          <div className="flex justify-center items-center h-32">
-            <div className="flex flex-col gap-2 flex-grow">
-              <p className="text-xs font-semibold text-accent mb-1">Substack</p>
-              <h3 className="text-md bg-black/40 w-40 h-6 animate-pulse rounded-md"></h3>
-              <p className="text-sm bg-black/40 w-44 md:w-3/4 h-12 animate-pulse rounded-md"></p>
-              <span className="text-xs bg-black/40 w-10 h-2 animate-pulse rounded-md"></span>
-            </div>
-            <span className="ml-3 text-gray-800 w-20 h-16 bg-black/40 animate-pulse rounded-lg"></span>
-          </div>
-          <div className="flex justify-center items-center h-32">
-            <div className="flex flex-col gap-2 flex-grow">
-              <p className="text-xs font-semibold text-accent mb-1">Substack</p>
-              <h3 className="text-md bg-black/40 w-40 h-6 animate-pulse rounded-md"></h3>
-              <p className="text-sm bg-black/40 w-44 md:w-3/4 h-12 animate-pulse rounded-md"></p>
-              <span className="text-xs bg-black/40 w-10 h-2 animate-pulse rounded-md"></span>
-            </div>
-            <span className="ml-3 text-gray-800 w-20 h-16 bg-black/40 animate-pulse rounded-lg"></span>
-          </div>
-          <div className="flex justify-center items-center h-32">
-            <div className="flex flex-col gap-2 flex-grow">
-              <p className="text-xs font-semibold text-accent mb-1">Substack</p>
-              <h3 className="text-md bg-black/40 w-40 h-6 animate-pulse rounded-md"></h3>
-              <p className="text-sm bg-black/40 w-44 md:w-3/4 xl:w-44 h-12 animate-pulse rounded-md"></p>
-              <span className="text-xs bg-black/40 w-10 h-2 animate-pulse rounded-md"></span>
-            </div>
-            <span className="ml-3 text-gray-800 w-20 h-16 bg-black/40 animate-pulse rounded-lg"></span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div>
-        <h2 className="flex items-center text-[19px] md:text-[21px] font-bold cambay border-b border-gray-300 pb-1 mb-3">
-          Copper Substacks
-        </h2>
-        <div className="text-center py-8 text-red-500">
-          Error loading substacks: {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (substackPosts.length === 0) {
-    return (
-      <div>
-        <h2 className="flex items-center text-[19px] md:text-[21px] font-bold cambay border-b border-gray-300 pb-1 mb-3">
-          Copper Substacks
-        </h2>
-        <div className="text-center py-8 text-gray-500">
-          No Substack posts available at this time
-        </div>
-      </div>
-    );
+  if (loading || error || substackPosts.length === 0) {
+    return null;
   }
 
   return (

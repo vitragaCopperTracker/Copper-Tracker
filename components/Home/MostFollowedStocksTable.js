@@ -280,6 +280,11 @@ const MostFollowedStocksTable = () => {
       );
       return response.data.exists ?? true;
     } catch (error) {
+      // Network errors (no response) shouldn't block navigation — treat as exists
+      if (!error.response) {
+        console.warn("Network error checking subpage, navigating anyway:", error.message);
+        return true;
+      }
       console.error("Error checking subpage existence:", error);
       return false;
     }
@@ -382,16 +387,7 @@ const MostFollowedStocksTable = () => {
   );
 
   if (loading) {
-    return (
-      <div className="w-full px-3 md:px-10 lg:px-12 py-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-center items-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-accent"></div>
-            <span className="ml-3 text-gray-600">Loading stock data...</span>
-          </div>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (

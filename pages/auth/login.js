@@ -78,10 +78,10 @@
 //             <div className="absolute inset-0 bg-black bg-opacity-75"></div>
 //             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-10">
 //               <h1 className="text-4xl font-bold mb-4">
-//                 Welcome to Platinum Tracker
+//                 Welcome to Copper Tracker
 //               </h1>
 //               <p className="text-base max-w-xl text-white/80 tracking-wide">
-//                 Track and manage your data effortlessly with Platinum Tracker.
+//                 Track and manage your data effortlessly with Copper Tracker.
 //                 Log in to access your account and stay organized.
 //               </p>
 //             </div>
@@ -292,7 +292,7 @@ const Login = () => {
         title="Login - Access Your Account"
         description="Log in to your account to access powerful tools, manage your watchlist, and stay updated with market trends."
         keywords="login, sign in, account access, user login, stock market tools, investment platform"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/auth/login"
+        canonicalUrl="/auth/login"
       />
 
       <Navbar />
@@ -307,10 +307,10 @@ const Login = () => {
             <div className="absolute inset-0 bg-black bg-opacity-75"></div>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-10">
               <h1 className="text-4xl font-bold mb-4">
-                Welcome to Platinum Tracker
+                Welcome to Copper Tracker
               </h1>
               <p className="text-base max-w-xl text-white/80 tracking-wide">
-                Track and manage your data effortlessly with Platinum Tracker.
+                Track and manage your data effortlessly with Copper Tracker.
                 Log in to access your account and stay organized.
               </p>
             </div>

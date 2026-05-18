@@ -218,7 +218,7 @@ const InventorySection = () => {
               <p style={{ ...styles.ix, ...styles.ixDark }}>
                 Metal is being <em>relocated</em>, not destroyed. Traders
                 front-loaded copper into US warehouses ahead of anticipated
-                Trump tariffs. Watch for COMEX inventory drain as a key signal:
+                US tariffs. Watch for COMEX inventory drain as a key signal:
                 if it starts falling from 503k, it means physical consumption is
                 absorbing the stockpile.
               </p>

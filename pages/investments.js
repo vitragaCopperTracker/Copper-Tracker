@@ -125,10 +125,10 @@ const investments = ({ stockData }) => {
   return (
     <div>
       <SEO
-        title="Copper Investment Insights - Market Trends & Stock Analysis"
-        description="Explore in-depth Copper investment insights, stock analysis, and the latest market trends. Stay informed about financial updates, ETF holdings, insider transactions, and stock screening tools to make better investment decisions."
-        keywords="Copper investment insights, stock market trends, ETF holdings, stock analysis, insider transactions, stock screener, market updates, investment strategies, Copper and Copper Alloys investments"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/investments"
+        title="Copper ETFs (COPX, CPER), Stocks & Insider Transactions"
+        description="Screen copper mining stocks, track ETF holdings (COPX, CPER, JJCTF), monitor insider transactions, and explore copper assets driving the energy transition."
+        keywords="copper ETF, COPX, CPER, copper mining stocks, copper insider transactions, copper stock screener, copper investment"
+        canonicalUrl="/investments"
       />
 
       <Navbar />

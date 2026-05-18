@@ -23,9 +23,9 @@ const PopularTools = () => {
         {/* c 1  */}
         <a href="/investments?tab=stock-screener">
           <div className="w-full bg-gray-100 p-4 py-7 border border-gray-300 rounded-sm relative group hover:bg-accent/15 hover:scale-[1.02] transition-all duration-200">
-            <h1 className="text-[1.2rem] font-medium  text-black/80 mb-2 group-hover:text-accent">
+            <h3 className="text-[1.2rem] font-medium  text-black/80 mb-2 group-hover:text-accent">
               Copper Stock Screener
-            </h1>
+            </h3>
             <p className="text-[15px]  group-hover:text-black/70">
               Identify and filter Copper-focused companies based on key factors,
               financial metrics, and market performance.
@@ -39,9 +39,9 @@ const PopularTools = () => {
         {/* c 2  */}
         <a href="/investments?tab=insider-transactions">
           <div className="w-full bg-gray-100 p-4 py-7 border border-gray-300 rounded-sm relative group hover:bg-accent/15 hover:scale-[1.02] transition-all duration-200">
-            <h1 className="text-[1.2rem] font-medium mb-2 text-black/80 group-hover:text-accent">
+            <h3 className="text-[1.2rem] font-medium mb-2 text-black/80 group-hover:text-accent">
               Copper Insider Trading Screener
-            </h1>
+            </h3>
             <p className="text-[15px]  group-hover:text-black/70">
               Track insider transactions in the Copper space to gain valuable
               insights each Copper company.
@@ -55,9 +55,9 @@ const PopularTools = () => {
         {/* c 3  */}
         <a href="/investments?tab=etf-trust-holdings">
           <div className="w-full bg-gray-100 p-4 py-7 border border-gray-300 rounded-sm relative group hover:bg-accent/15 hover:scale-[1.02] transition-all duration-200">
-            <h1 className="text-[1.2rem] font-medium text-black/80 mb-2 group-hover:text-accent">
+            <h3 className="text-[1.2rem] font-medium text-black/80 mb-2 group-hover:text-accent">
               ETF/Trust Holdings
-            </h1>
+            </h3>
             <p className="text-[15px] group-hover:text-black/70">
               View up-to-date holdings and return profiles for Copper ETFs and
               track daily purchases and valuation metrics.

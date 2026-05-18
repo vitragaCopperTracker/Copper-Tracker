@@ -75,7 +75,7 @@ const Videos = () => {
         title="Copper Video Hub - Market Updates, Education & Insights"
         description="Enhance your Copper market knowledge through our educational video content. From market fundamentals to advanced trading strategies, explore our comprehensive library of featured videos, company insights, podcasts, and educational resources."
         keywords="Copper videos, market updates, Copper education, trading strategies, company insights, Copper podcasts, investment knowledge, Copper and Copper Alloys"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/videos"
+        canonicalUrl="/videos"
       />
       <Navbar />
       <VideoHero />

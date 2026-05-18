@@ -118,8 +118,8 @@ const CopperPricing = () => {
                   lineHeight: "1.65",
                 }}
               >
-                A fifth factor unique to 2026: US trade policy. The Trump
-                administration imposed 50% tariffs on semi-finished copper
+                A fifth factor unique to 2026: US trade policy. The US
+                imposed 50% tariffs on semi-finished copper
                 products in August 2025, and a review of refined copper tariffs
                 is due June 30, 2026. This has created a massive COMEX-LME
                 arbitrage: traders shipped ~500,000 tonnes of copper to US

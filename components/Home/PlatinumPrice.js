@@ -23,16 +23,8 @@ const PlatinumPrice = () => {
       });
   }, []);
 
-  // If copperData is not yet available, render a loading state
   if (!copperData) {
-    return (
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-10 mt-4 rounded-lg max-w-3xl">
-        <div className="text-center text-red-400">
-          <p>CME copper spot price data unavailable</p>
-          <p className="text-sm text-gray-400">Real-time data only - no fallback data</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   // Extract and format the required values, with fallback to 0.00 if data is invalid

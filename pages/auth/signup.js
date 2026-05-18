@@ -72,7 +72,7 @@
 //             />
 //             <div className="absolute inset-0 bg-black bg-opacity-75"></div>
 //             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-10">
-//               <h1 className="text-4xl font-bold mb-4">Join Platinum Tracker</h1>
+//               <h1 className="text-4xl font-bold mb-4">Join Copper Tracker</h1>
 //               <p className="text-base max-w-xl text-white/80 tracking-wide">
 //                 Create your account today and start managing your data with our
 //                 powerful tracking tools.
@@ -305,7 +305,7 @@ const Signup = () => {
         title="Sign Up - Create Your Account"
         description="Join us today! Create your account to access powerful tools, manage your watchlist, and stay updated with Copper market trends."
         keywords="sign up, create account, registration, join now, stock market tools, investment platform, market trends,Copper Tracker"
-        canonicalUrl="https://musical-panda-75f15d.netlify.app/auth/signup"
+        canonicalUrl="/auth/signup"
       />
 
       <Navbar />
@@ -319,7 +319,7 @@ const Signup = () => {
             />
             <div className="absolute inset-0 bg-black bg-opacity-75"></div>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-10">
-              <h1 className="text-4xl font-bold mb-4">Join Platinum Tracker</h1>
+              <h1 className="text-4xl font-bold mb-4">Join Copper Tracker</h1>
               <p className="text-base max-w-xl text-white/80 tracking-wide">
                 Create your account today and start managing your data with our
                 powerful tracking tools.

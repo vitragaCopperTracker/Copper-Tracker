@@ -286,7 +286,7 @@ const PlainNews = () => {
   if (loading) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h1>
+        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
         <Loader />
       </div>
     );
@@ -295,7 +295,7 @@ const PlainNews = () => {
   if (error) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h1>
+        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
         <div className="text-center py-8 text-red-500">{error}</div>
       </div>
     );
@@ -304,7 +304,7 @@ const PlainNews = () => {
   if (!newsData || newsData.length === 0) {
     return (
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h1>
+        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
         <div className="text-center py-8 text-gray-500">No data available</div>
       </div>
     );
@@ -313,7 +313,7 @@ const PlainNews = () => {
   return (
     <div>
       <div>
-        <h1 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h1>
+        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
 
         <div className="flex flex-wrap md:flex-nowrap gap-5">
           <div className="w-full grid grid-cols-1 gap-3">

@@ -42,11 +42,11 @@ export default function BullMarket() {
         Act 2: The tariff front-loading (August 2025&ndash;January 2026)
       </h3>
       <p style={style.p}>
-        In August 2025, the Trump administration imposed 50% tariffs on
+        In August 2025, the US imposed 50% tariffs on
         semi-finished copper products. Refined copper (cathode) was exempted
-        &mdash; but the White House explicitly left the door open for refined
-        copper tariffs, saying a Section 232 national security review was
-        ongoing with a decision expected by June 30, 2026. That announcement
+        &mdash; but the US government explicitly left the door open for refined
+        copper tariffs, with a Section 232 national security review
+        ongoing and a decision expected by June 30, 2026. That announcement
         started a slow-motion scramble.
       </p>
 

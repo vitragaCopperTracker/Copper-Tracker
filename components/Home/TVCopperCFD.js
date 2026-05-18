@@ -26,9 +26,9 @@ function CopperCFDTradingViewWidget() {
           "save_image": false,
           "calendar": false,
           "hide_volume": true className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
-            <h1 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
+            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
               Copper Futures
-            </h1>
+            </h2>
             <TVCopper />
           </div>
           "support_host": "https://www.tradingview.com"

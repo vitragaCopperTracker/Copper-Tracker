@@ -1,5 +1,6 @@
 import React from "react";
 import * as styles from "./styles";
+import { COPPER_SPOT_PRICE_LB } from "@/src/constants";
 
 const GlobalStyles = () => (
   <style>{`
@@ -13,8 +14,7 @@ const GlobalStyles = () => (
 );
 
 const ScrapCopperPrice = () => {
-  // Current market context for April 17, 2026
-  const comexSpot = 6.07;
+  const comexSpot = COPPER_SPOT_PRICE_LB;
 
   const scrapGrades = [
     {
@@ -89,8 +89,8 @@ const ScrapCopperPrice = () => {
           </h2>
           <p style={styles.sdesc}>
             Scrap copper provides roughly 35% of global supply. As of mid-April
-            2026, COMEX spot prices are holding strong near{" "}
-            <strong>$6.07/lb</strong>. Local dealer payouts are calculated as a
+            2026, COMEX spot prices are holding near{" "}
+            <strong>$5.80/lb</strong>. Local dealer payouts are calculated as a
             percentage of this benchmark, minus processing and transport
             spreads.
           </p>

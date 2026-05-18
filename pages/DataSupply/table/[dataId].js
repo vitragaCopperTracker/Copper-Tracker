@@ -374,7 +374,7 @@ const TableSubpage = () => {
         title={`${table.title} -  Data Supply & Market Insights`}
         description="Explore detailed market data with our Data Data Supply. Analyze trends, track investments, and gain financial insights."
         keywords="data Data Supply, market insights, price trends, investment data, financial charts, stock analysis"
-        canonicalUrl={`https://musical-panda-75f15d.netlify.app/DataDemandDatabase/table/${dataId}`}
+        canonicalUrl={`/DataSupply/table/${dataId}`}
       />
 
       <DataBreadcrumb title={table.title} />

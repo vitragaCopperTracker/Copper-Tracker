@@ -59,56 +59,7 @@ const HomeInsiderTransactions = () => {
   const rows = 10;
 
   if (loading) {
-    // return (
-    //   <div className="text-center py-4">
-    //     <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-accent mx-auto"></div>
-    //   </div>
-    // );
-    return (
-      <div className="overflow-auto md:overflow-scroll 2xl:overflow-visible border border-black/10 rounded-xl custom-scrollbar-hidden">
-        <table className="table-auto w-full border-collapse text-md ">
-          <thead className="">
-            <tr className="text-black/60">
-              {[
-                "Country",
-                "Company",
-                "Ticker",
-                "Insider",
-                "Title",
-                "Type",
-                "Price",
-                "Qty",
-                "Amount",
-                "Date",
-              ].map((h) => (
-                <th key={h} className={`py-2`}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: rows }).map((_, i) => (
-              <tr key={i}>
-                <td className="border-t py-2">
-                  <span
-                    className={`${shimmer} bg-zinc-200 ml-2 inline-block h-4 w-8 `}
-                  />
-                </td>
-
-                {cols.slice(1).map((w, ci) => (
-                  <td key={ci} className="border-t px-10 py-[10px] ">
-                    <span
-                      className={`${shimmer} bg-zinc-200 rounded-md inline-block h-4 ${w}`}
-                    />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    return null;
   }
 
   if (error) {
