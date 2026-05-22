@@ -1,9 +1,8 @@
 import React from "react";
 import Footer2 from "./Footer2";
-// import { useRouter } from "next/router";
+import TrackerNetwork from "./TrackerNetwork";
 
 const Footer = () => {
-  // const router = useRouter();
   return (
     <footer className="relative w-full h-fit bg-gray-900">
       {/* Footer Content */}
@@ -23,13 +22,6 @@ const Footer = () => {
                 inventory levels, screen mining stocks, and follow insider transactions
                 — all the copper intelligence you need, in one place.
               </p>
-              {/* <button
-                type="submit"
-                className="h-10 w-fit px-6 rounded-sm bg-accent text-white font-medium hover:bg-accent/90 frank text-[14px]"
-                onClick={() => router.push("/auth/signup")}
-              >
-                Sign Up For Free
-              </button> */}
             </div>
 
             {/* Image Content */}
@@ -43,6 +35,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      {/* Commodities Tracker Network section */}
+      <TrackerNetwork />
       <Footer2 />
     </footer>
   );
