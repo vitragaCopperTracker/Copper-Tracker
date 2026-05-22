@@ -19,6 +19,7 @@ import HomeInsiderTransactions from "@/components/Home/HomeInsiderTransactions";
 import SEO from "@/components/SEO";
 import StocksMarquee from "@/components/Home/StocksMarquee";
 import MostFollowedStocksTable from "@/components/Home/MostFollowedStocksTable";
+import SubstacksFull from "@/components/Home/SubstacksFull";
 
 const home = () => {
   return (
@@ -127,6 +128,9 @@ const home = () => {
       <div className="mb-8">
         <StayAhead />
       </div>
+
+      {/* Copper Substacks — full-width grid below StayAhead */}
+      <SubstacksFull />
 
       {/* footer -------------------------------------------------------------------------------------------- */}
       <Footer />
