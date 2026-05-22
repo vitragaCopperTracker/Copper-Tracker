@@ -293,6 +293,7 @@ const Login = () => {
         description="Log in to your account to access powerful tools, manage your watchlist, and stay updated with market trends."
         keywords="login, sign in, account access, user login, stock market tools, investment platform"
         canonicalUrl="/auth/login"
+        noIndex={true}
       />
 
       <Navbar />

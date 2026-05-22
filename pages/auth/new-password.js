@@ -56,6 +56,7 @@ const NewPassword = () => {
         description="Forgot your password? Update it now to regain access to your account securely."
         keywords="reset password, password recovery, forgot password, account access, secure login, recover account,new passowrd"
         canonicalUrl="/auth/new-password"
+        noIndex={true}
       />
       <motion.div
         initial={{ opacity: 0, y: 20 }}

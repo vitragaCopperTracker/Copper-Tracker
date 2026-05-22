@@ -10,29 +10,23 @@ function CopperCFDTradingViewWidget() {
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
-    script.innerHTML = `
-        {
-          "width": "100%",
-          "height": "100%",
-          "symbol": "CAPITALCOM:COPPER",
-          "interval": "D",
-          "timezone": "Etc/UTC",
-          "theme": "light",
-          "style": "2",
-          "locale": "en",
-          "hide_top_toolbar": true,
-          "hide_legend": true,
-          "allow_symbol_change": false,
-          "save_image": false,
-          "calendar": false,
-          "hide_volume": true className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
-            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              Copper Futures
-            </h2>
-            <TVCopper />
-          </div>
-          "support_host": "https://www.tradingview.com"
-        }`;
+    script.innerHTML = JSON.stringify({
+      width: "100%",
+      height: "100%",
+      symbol: "COMEX:HG1!",
+      interval: "D",
+      timezone: "Etc/UTC",
+      theme: "light",
+      style: "2",
+      locale: "en",
+      hide_top_toolbar: true,
+      hide_legend: true,
+      allow_symbol_change: false,
+      save_image: false,
+      calendar: false,
+      hide_volume: true,
+      support_host: "https://www.tradingview.com",
+    });
     container.current.appendChild(script);
   }, []);
 

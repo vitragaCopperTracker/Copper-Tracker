@@ -227,10 +227,11 @@ const StockDetailPage = () => {
     return (
       <div>
         <SEO
-          title="Stock Not Found"
-          description="Stock Not Found"
+          title="Stock Not Found | Copper Tracker"
+          description="We couldn't find data for this stock ticker. Browse copper mining stocks, ETFs, and market data on Copper Tracker."
           keywords="stock details, market insights, stock analysis, stock performance, investment, financial data, stock trends"
           canonicalUrl="/stock-detail"
+          noIndex={true}
         />
         <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4">
           <div className="text-center">
@@ -255,10 +256,17 @@ const StockDetailPage = () => {
   return (
     <div>
       <SEO
-        title="Stock Details - Market Insights & Analysis"
-        description="Get in-depth stock details, real-time market data, historical performance, and expert analysis to make informed investment decisions."
-        keywords="stock details, market insights, stock analysis, stock performance, investment, financial data, stock trends"
-        canonicalUrl="/stock-detail"
+        title={`${data[0].stock_name} (${data[0].stock_ticker}) Stock Details | Copper Tracker`}
+        description={`Get real-time price, charts, financials, and analysis for ${data[0].stock_name} (${data[0].stock_ticker}) — a copper-related stock on ${data[0].stock_exchange}.`}
+        keywords={`${data[0].stock_ticker}, ${data[0].stock_name}, copper stock, ${data[0].stock_exchange}, stock analysis, copper mining`}
+        canonicalUrl={`/stock-detail/${data[0].stock_ticker}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FinancialProduct",
+          name: `${data[0].stock_name} (${data[0].stock_ticker})`,
+          description: `Stock details for ${data[0].stock_name} listed on ${data[0].stock_exchange}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.coppertracker.com"}/stock-detail/${data[0].stock_ticker}`,
+        }}
       />
       <Navbar />
       <div className="flex flex-col md:flex-row justify-between px-2 md:px-12 my-10 pb-20 mt-24">

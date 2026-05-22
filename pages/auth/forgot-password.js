@@ -51,6 +51,7 @@ const ResetPassword = () => {
         description="Enter your email to receive a password reset link and regain access to your account securely."
         keywords="forgot password, password reset, recover account, secure login, reset link, account recovery"
         canonicalUrl="/auth/forgot-password"
+        noIndex={true}
       />
 
       <main className="flex-grow mt-">

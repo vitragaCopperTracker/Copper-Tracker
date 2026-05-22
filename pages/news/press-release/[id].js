@@ -170,10 +170,29 @@ const PressReleasePage = () => {
   return (
     <>
       <SEO
-        title="Press Release - Latest News & Updates"
-        description="Read the latest press releases and stay informed with important news and updates from the industry."
-        keywords="press release, latest news, industry updates, company announcements, financial news, market insights"
-        canonicalUrl="/press-release"
+        title={`${newsData.title} | Copper Tracker`}
+        description={
+          newsData.content
+            ? newsData.content.slice(0, 155).replace(/\n/g, " ") + "…"
+            : "Read the latest copper industry press releases and company announcements on Copper Tracker."
+        }
+        keywords="press release, copper news, industry updates, company announcements, financial news, market insights"
+        canonicalUrl={`/news/press-release/${id}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          headline: newsData.title,
+          datePublished: newsData.date,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.coppertracker.com"}/news/press-release/${id}`,
+          publisher: {
+            "@type": "Organization",
+            name: "Copper Tracker",
+            logo: {
+              "@type": "ImageObject",
+              url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.coppertracker.com"}/logo.png`,
+            },
+          },
+        }}
       />
 
       <Navbar />

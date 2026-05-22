@@ -9,9 +9,10 @@ export default function Custom404() {
     <div className="flex flex-col items-center justify-center min-h-screen  text-black">
       <SEO
         title="Page Not Found - Copper Tracker"
-        description="Oops! The page you're looking for doesn’t exist. Get back on track with the latest Copper and Copper Alloys market updates and insights."
+        description="Oops! The page you're looking for doesn't exist. Get back on track with the latest Copper and Copper Alloys market updates and insights."
         keywords="404, page not found, Copper market, Copper prices, Copper tracker"
         canonicalUrl="/404"
+        noIndex={true}
       />
       <motion.div
         initial={{ opacity: 0, y: -50 }}

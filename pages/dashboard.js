@@ -43,6 +43,7 @@ const DashboardLayout = () => {
         description="Access a powerful stock screener, manage your watchlist, stay updated with market news, and analyze stock trends with our advanced dashboard."
         keywords="dashboard, stock screener, watchlist, stock market, stock analysis, financial news, market trends, investment tools"
         canonicalUrl="/dashboard"
+        noIndex={true}
       />
       <div className="flex h-full">
         {/* Mobile Sidebar Overlay */}

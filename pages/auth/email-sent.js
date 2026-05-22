@@ -40,6 +40,7 @@ const EmailSent = () => {
         description="Your email has been sent successfully. Check your inbox for confirmation and further instructions."
         keywords="email sent, confirmation, inbox, message delivered, email success, verification email, next steps"
         canonicalUrl="/auth/email-sent"
+        noIndex={true}
       />
 
       <motion.div

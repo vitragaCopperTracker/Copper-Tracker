@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block auth and private pages
+Disallow: /auth/
+Disallow: /dashboard
+Disallow: /emailsent
+Disallow: /home
+
+# Block dynamic table detail pages (data-heavy, low SEO value)
+Disallow: /DataDemandDatabase/table/
+Disallow: /DataSupply/table/
+
+Sitemap: https://www.coppertracker.com/sitemap.xml

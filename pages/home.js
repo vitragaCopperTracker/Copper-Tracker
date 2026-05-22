@@ -16,10 +16,18 @@ import TVCopper from "@/components/Home/TVCopper";
 import PlainNews from "@/components/Home/PlainNews";
 import HomeCopperPrice from "@/components/Home/HomeCopperPrice";
 import HomeInsiderTransactions from "@/components/Home/HomeInsiderTransactions";
+import SEO from "@/components/SEO";
 
 const home = () => {
   return (
     <div>
+      <SEO
+        title="Copper Price Today: COMEX HG & LME Charts | Copper Tracker"
+        description="Track live copper prices on COMEX (HG) and LME. Real-time charts, insider transactions, press releases, and copper stock news — all in one place."
+        keywords="copper price today, COMEX HG copper, LME copper price, copper spot price, copper market news, copper stocks, copper tracker"
+        canonicalUrl="/"
+        noIndex={true}
+      />
       <Navbar />
       <Hero />
 

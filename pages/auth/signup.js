@@ -306,6 +306,7 @@ const Signup = () => {
         description="Join us today! Create your account to access powerful tools, manage your watchlist, and stay updated with Copper market trends."
         keywords="sign up, create account, registration, join now, stock market tools, investment platform, market trends,Copper Tracker"
         canonicalUrl="/auth/signup"
+        noIndex={true}
       />
 
       <Navbar />

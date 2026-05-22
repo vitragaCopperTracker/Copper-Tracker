@@ -41,6 +41,7 @@ const VerifyEmail = () => {
         description="Please verify your email to complete the registration process and access your account."
         keywords="verify email, email confirmation, account verification, email authentication, registration, confirmation link"
         canonicalUrl="/auth/verify-email"
+        noIndex={true}
       />
 
       <motion.div

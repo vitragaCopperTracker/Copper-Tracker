@@ -2,82 +2,136 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SUBSTACKS } from "@/src/api/copperAPI";
 
+const FALLBACK_IMAGE =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&s";
+
+const truncateText = (text, words = 12) => {
+  if (!text) return "";
+  const clean = text.replace(/<[^>]*>/g, "").trim();
+  const parts = clean.split(/\s+/);
+  return parts.length <= words
+    ? clean
+    : parts.slice(0, words).join(" ") + "…";
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  try {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch {
+    return "";
+  }
+};
+
+// Derive a short author/source label from the post URL or subtitle
+const getSourceLabel = (post) => {
+  if (post.subtitle) return post.subtitle.toUpperCase();
+  try {
+    const host = new URL(post.url).hostname; // e.g. "smallcaptreasures.substack.com"
+    const name = host.replace(".substack.com", "").replace(/[-_]/g, " ");
+    return name.toUpperCase();
+  } catch {
+    return "COPPER SUBSTACK";
+  }
+};
+
+const SubstackItem = ({ post }) => (
+  <Link
+    href={post.url || "#"}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-b-0 last:pb-0 group"
+  >
+    {/* Thumbnail — left side */}
+    <div className="flex-shrink-0 w-[72px] h-[72px] rounded-md overflow-hidden bg-gray-100">
+      <img
+        src={post.image || FALLBACK_IMAGE}
+        alt={post.title ? post.title.slice(0, 40) : "Substack post"}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+        onError={(e) => {
+          e.target.src = FALLBACK_IMAGE;
+        }}
+      />
+    </div>
+
+    {/* Text — right side */}
+    <div className="flex flex-col min-w-0">
+      {/* Source label */}
+      <span className="text-[10px] font-semibold tracking-wide text-accent uppercase mb-0.5 truncate">
+        {getSourceLabel(post)}
+      </span>
+
+      {/* Title */}
+      <h3 className="text-[13.5px] font-bold text-gray-900 leading-snug group-hover:text-accent transition-colors line-clamp-2">
+        {post.title || "Untitled"}
+      </h3>
+
+      {/* Excerpt */}
+      {post.content && (
+        <p className="text-[12px] text-gray-500 mt-0.5 line-clamp-2 leading-snug">
+          {truncateText(post.content, 12)}
+        </p>
+      )}
+
+      {/* Date */}
+      {post.date && (
+        <span className="text-[11px] text-gray-400 mt-1">
+          {formatDate(post.date)}
+        </span>
+      )}
+    </div>
+  </Link>
+);
+
+const SubstacksSkeleton = () => (
+  <div className="border border-black/10 rounded-lg p-4 space-y-4">
+    <div className="h-5 w-40 bg-gray-200 rounded animate-pulse" />
+    <div className="h-px bg-gray-200" />
+    {[...Array(3)].map((_, i) => (
+      <div key={i} className="flex gap-3">
+        <div className="w-[72px] h-[72px] rounded-md bg-gray-200 animate-pulse flex-shrink-0" />
+        <div className="flex-1 space-y-2 pt-1">
+          <div className="h-2.5 w-24 bg-gray-200 rounded animate-pulse" />
+          <div className="h-3.5 w-full bg-gray-200 rounded animate-pulse" />
+          <div className="h-3.5 w-4/5 bg-gray-200 rounded animate-pulse" />
+          <div className="h-2.5 w-16 bg-gray-200 rounded animate-pulse" />
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 const Substacks = () => {
-  const [substackPosts, setSubstackPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Function to truncate content
-  const truncateContent = (content) => {
-    if (!content) return "";
-    const cleanContent = content.replace(/<[^>]*>/g, "");
-    const words = cleanContent.split(/\s+/).slice(0, 15);
-    return words.length > 0 ? `${words.join(" ")}...` : "";
-  };
-
-  // Intelligent title truncation function
-  const formatTitle = (title) => {
-    if (!title) return "Untitled";
-    if (title.length <= 70) return title;
-    return `${title.substring(0, 70)}...`;
-  };
-
-  // Format date function
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    try {
-      return new Date(dateString).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
-    } catch (error) {
-      console.warn("Invalid date format:", dateString);
-      return "";
-    }
-  };
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchSubstacks = async () => {
       try {
-        console.log("Fetching substacks from:", SUBSTACKS);
-        const response = await fetch(SUBSTACKS);
+        const res = await fetch(SUBSTACKS);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
 
-        if (!response.ok) {
-          const errorText = await response.text().catch(() => "");
-          const message = errorText
-            ? `HTTP ${response.status}: ${errorText}`
-            : `HTTP error! status: ${response.status}`;
-          console.error("Substacks request failed:", message);
-          setError(message);
-          setSubstackPosts([]);
-          setLoading(false);
-          return;
-        }
+        const formatted = (Array.isArray(data) ? data : []).map((post) => ({
+          id: post.id ?? Math.random().toString(36).slice(2),
+          title: post.title || "",
+          url: post.url || "#",
+          content: post.content || post.subtitle || "",
+          subtitle: post.subtitle || "",
+          image: post.image_url || FALLBACK_IMAGE,
+          date: post.date || post.created_at || "",
+        }));
 
-        const data = await response.json();
-        console.log("Substacks data:", data);
-
-        const formattedPosts = Array.isArray(data)
-          ? data.map((post) => ({
-              id: post.id || Math.random().toString(36).substr(2, 9),
-              title: formatTitle(post.title) || "Untitled Substack Post",
-              url: post.url || "#",
-              content: truncateContent(post.content),
-              subtitle: post.subtitle || "",
-              image:
-                post.image_url ||
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&s",
-              date: formatDate(post.date || post.created_at),
-            }))
-          : [];
-
-        setSubstackPosts(formattedPosts);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching substacks:", error);
-        setError(error.message);
-        setSubstackPosts([]);
+        setPosts(formatted);
+      } catch (err) {
+        console.error("Substacks fetch error:", err);
+        setError(true);
+      } finally {
         setLoading(false);
       }
     };
@@ -85,59 +139,18 @@ const Substacks = () => {
     fetchSubstacks();
   }, []);
 
-  if (loading || error || substackPosts.length === 0) {
-    return null;
-  }
+  if (loading) return <SubstacksSkeleton />;
+  if (error || posts.length === 0) return null;
 
   return (
-    <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3 ">
-      <h2 className="flex items-center text-[19px] md:text-[21px] font-bold cambay border-b border-gray-300 pb-1 mb-3">
+    <div className="border border-black/10 rounded-lg p-4">
+      <h2 className="text-[19px] md:text-[21px] font-bold cambay mb-2 pb-2 border-b border-gray-200">
         Copper Substacks
       </h2>
-      <div className="space-y-6">
-        {substackPosts.slice(0, 4).map((post) => (
-          <Link
-            key={post.id}
-            href={post.url}
-            target="_blank"
-            className="flex items-start justify-between space-x-4 pb-1 cursor-pointer group border-b border-gray-100 last:border-b-0"
-          >
-            <div className="flex flex-col flex-grow">
-              <p className="text-xs font-semibold text-accent mb-1">Substack</p>
 
-              <h3 className="text-md font-bold text-gray-800 mt-1 group-hover:text-accent transition-colors">
-                {post.title}
-              </h3>
-
-              {post.content && (
-                <p className="text-sm xl:text-xs 2xl:text-sm text-gray-600 mt-1 line-clamp-2">
-                  {post.content}
-                </p>
-              )}
-
-              {post.date && (
-                <span className="text-xs text-gray-500 mt-2">{post.date}</span>
-              )}
-            </div>
-
-            <div className="flex-shrink-0">
-              <div className="w-[80px] h-[75px] overflow-hidden rounded-md">
-                <img
-                  src={post.image}
-                  alt={
-                    post.title
-                      ? post.title.substring(0, 10) + "..."
-                      : "Substack post"
-                  }
-                  className="object-cover w-full h-full group-hover:scale-105 transition-transform"
-                  onError={(e) => {
-                    e.target.src =
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&s";
-                  }}
-                />
-              </div>
-            </div>
-          </Link>
+      <div className="space-y-4 mt-3">
+        {posts.slice(0, 5).map((post) => (
+          <SubstackItem key={post.id} post={post} />
         ))}
       </div>
     </div>

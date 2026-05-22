@@ -14,6 +14,7 @@ const EmailSent = () => {
         description="Your email has been sent successfully. Check your inbox for confirmation and further instructions."
         keywords="email sent, confirmation, inbox, message delivered, email success, verification email, next steps"
         canonicalUrl="/emailsent"
+        noIndex={true}
       />
 
       <main className="flex-grow mt-16">

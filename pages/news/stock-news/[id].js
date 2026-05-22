@@ -9,6 +9,7 @@ import PopularIntradayReturn from "@/components/Home/MostFollowed";
 import MoreNews from "@/components/News/MoreNews";
 import Footer from "@/components/Footer";
 import Loader from "@/components/Loader";
+import SEO from "@/components/SEO";
 
 const StockNewsPage = () => {
   const router = useRouter();
@@ -65,6 +66,32 @@ const StockNewsPage = () => {
 
   return (
     <>
+      <SEO
+        title={`${newsData.title} | Copper Tracker`}
+        description={
+          newsData.content
+            ? newsData.content.slice(0, 155).replace(/\n/g, " ") + "…"
+            : "Read the latest copper stock news and market updates on Copper Tracker."
+        }
+        keywords="copper stock news, copper market, stock analysis, copper mining news, market updates"
+        canonicalUrl={`/news/stock-news/${id}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          headline: newsData.title,
+          datePublished: newsData.date,
+          image: newsData.image_url || undefined,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.coppertracker.com"}/news/stock-news/${id}`,
+          publisher: {
+            "@type": "Organization",
+            name: "Copper Tracker",
+            logo: {
+              "@type": "ImageObject",
+              url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.coppertracker.com"}/logo.png`,
+            },
+          },
+        }}
+      />
       <Navbar />
       <div className="mt-16 w-full flex justify-between px-3 md:px-20 py-8 md:py-16">
         {/* news  */}
