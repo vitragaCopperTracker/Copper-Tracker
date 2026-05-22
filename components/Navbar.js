@@ -212,11 +212,12 @@ const Navbar = () => {
         {/* Logo */}
         <Image
           src="/logo.png"
-          alt="Logo"
-          width={70}
-          height={70}
-          className="cursor-pointer ml-3 scale-[1.9] xl:ml-7"
+          alt="Copper Tracker"
+          width={180}
+          height={31}
+          className="cursor-pointer ml-3 xl:ml-7"
           onClick={() => navigateTo("/")}
+          priority
         />
 
         {/* Desktop Navigation (Visible after xl) */}
