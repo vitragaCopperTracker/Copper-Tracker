@@ -1,32 +1,33 @@
-// TradingViewWidget.jsx
+// Copper Futures sidebar chart — TradingView mini-chart widget (free plan compatible)
+// Symbol: CPER — United States Copper Index Fund ETF (NYSE Arca), tracks copper futures
 import React, { useEffect, useRef, memo } from "react";
 
 function CopperTradingViewWidget() {
   const container = useRef();
 
   useEffect(() => {
+    // Prevent duplicate script injection on re-renders
+    if (container.current.querySelector("script")) return;
+
     const script = document.createElement("script");
     script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+      "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
+      symbol: "AMEX:CPER",
       width: "100%",
-      height: "250",
-      symbol: "LME:CA1!",
-      interval: "D",
-      timezone: "Etc/UTC",
-      theme: "light",
-      style: "2",
+      height: "220",
       locale: "en",
-      hide_top_toolbar: true,
-      hide_legend: true,
-      allow_symbol_change: false,
-      save_image: false,
-      calendar: false,
-      hide_volume: true,
-      support_host: "https://www.tradingview.com",
+      dateRange: "12M",
+      colorTheme: "light",
+      isTransparent: false,
+      autosize: false,
+      largeChartUrl: "",
+      noTimeScale: false,
+      chartOnly: false,
     });
+
     container.current.appendChild(script);
   }, []);
 
