@@ -12,14 +12,14 @@ const COPPER_STOCKS = [
   { symbol: "NYSE:SCCO",   label: "Southern Copper" },
   { symbol: "NYSE:TECK",   label: "Teck Resources" },
   { symbol: "NYSE:VALE",   label: "Vale S.A." },
-  { symbol: "LSE:GLEN",    label: "Glencore" },
+  { symbol: "OTC:GLCNF",  label: "Glencore" },
   { symbol: "NYSE:BHP",    label: "BHP Group" },
   { symbol: "TSX:CS",      label: "Capstone Copper" },
   { symbol: "NYSE:RIO",    label: "Rio Tinto" },
   { symbol: "TSX:FM",      label: "First Quantum" },
   { symbol: "AMEX:COPX",   label: "Copper Miners ETF" },
   { symbol: "AMEX:CPER",   label: "US Copper Index" },
-  { symbol: "NYSE:LUNMF",  label: "Lundin Mining" },
+  { symbol: "TSX:LUN",     label: "Lundin Mining" },
 ];
 
 /* ── Single widget card ──────────────────────────────────────────────────── */
