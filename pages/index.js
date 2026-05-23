@@ -83,7 +83,6 @@ const home = () => {
             <TVCopper />
           </div>
           <Substacks />
-          <DailyNewsletterAd />
         </div>
       </div>
 
