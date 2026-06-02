@@ -20,8 +20,96 @@ import SEO from "@/components/SEO";
 import StocksMarquee from "@/components/Home/StocksMarquee";
 import MostFollowedStocksTable from "@/components/Home/MostFollowedStocksTable";
 import SubstacksFull from "@/components/Home/SubstacksFull";
+import Head from "next/head";
 
-const home = () => {
+// Build the full JSON-LD graph with live price data
+function buildJsonLd(spotPrice, priceChange, priceChangePct, dateModified) {
+  const siteUrl = "https://www.coppertracker.com";
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#org`,
+        name: "Copper Tracker",
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`,
+          width: 200,
+          height: 60,
+        },
+        sameAs: [
+          "https://www.uraniumtracker.com/",
+          "https://www.lithiumtracker.com/",
+          "https://www.nickelmetaltracker.com/",
+          "https://www.pgmtracker.com/",
+          "https://www.goldandsilvertracker.com/",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: "Copper Tracker",
+        inLanguage: "en-US",
+        publisher: { "@id": `${siteUrl}/#org` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${siteUrl}/news?search={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${siteUrl}/#webpage`,
+        url: siteUrl,
+        name: "Copper Tracker — Live Copper Prices, Stocks & Market News",
+        description: "Track live copper prices on COMEX (HG) and LME. Real-time charts, insider transactions, press releases, and copper stock news — all in one place.",
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: { "@id": `${siteUrl}/#org` },
+        datePublished: "2023-01-01",
+        dateModified,
+      },
+      {
+        "@type": "Dataset",
+        "@id": `${siteUrl}/#dataset-copper-price`,
+        name: "Copper Spot Price",
+        description: "Live copper spot price in USD per pound, updated daily.",
+        license: `${siteUrl}/disclaimer`,
+        creator: { "@id": `${siteUrl}/#org` },
+        dateModified,
+        keywords: ["copper price", "spot price", "copper", "COMEX", "LME"],
+        variableMeasured: [
+          {
+            "@type": "PropertyValue",
+            name: "Copper Spot Price",
+            unitCode: "USD/lb",
+            value: spotPrice,
+          },
+          {
+            "@type": "PropertyValue",
+            name: "Daily Change",
+            unitCode: "USD/lb",
+            value: priceChange,
+          },
+          {
+            "@type": "PropertyValue",
+            name: "Daily Change Percent",
+            unitCode: "%",
+            value: priceChangePct,
+          },
+        ],
+      },
+    ],
+  };
+}
+
+// Component receives props from getServerSideProps
+const home = ({ copperSpot, jsonLd }) => {
   return (
     <div>
       <SEO
@@ -30,6 +118,25 @@ const home = () => {
         keywords="copper price today, COMEX HG copper, LME copper price, copper spot price, copper market news, copper stocks, copper tracker"
         canonicalUrl="/"
       />
+
+      {/* Server-rendered JSON-LD with live price data — visible to all crawlers */}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </Head>
+
+      {/* Server-rendered price strip — visible in raw HTML to LLM crawlers */}
+      {copperSpot && (
+        <div className="sr-only" aria-label="Live copper spot price data">
+          <p>
+            Copper Spot Price: ${copperSpot.price} per pound.
+            Daily change: ${copperSpot.price_change} ({copperSpot.price_change_percent}).
+            Data as of {copperSpot.date}.
+          </p>
+        </div>
+      )}
 
       <Navbar />
       <StocksMarquee />
@@ -136,3 +243,51 @@ const home = () => {
 };
 
 export default home;
+
+// Server-side rendering — fetches live copper price at request time
+// This ensures the price appears in raw HTML, visible to all crawlers including LLMs
+export async function getServerSideProps() {
+  const dateModified = new Date().toISOString();
+  let copperSpot = null;
+
+  try {
+    const res = await fetch("https://metal-scrapper.onrender.com/commodities", {
+      headers: { "Accept": "application/json" },
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const copper = Array.isArray(data)
+        ? data.find((i) => i.name === "Copper" || i.name === "copper")
+        : null;
+
+      if (copper) {
+        copperSpot = {
+          price: parseFloat(copper.price || 0).toFixed(4),
+          price_change: parseFloat(copper.day_change || 0).toFixed(4),
+          price_change_percent: copper.percent_change
+            ? `${parseFloat(copper.percent_change).toFixed(2)}%`
+            : "0.00%",
+          date: dateModified,
+        };
+      }
+    }
+  } catch (err) {
+    console.warn("SSR copper price fetch failed:", err.message);
+  }
+
+  const jsonLd = buildJsonLd(
+    copperSpot?.price ?? "N/A",
+    copperSpot?.price_change ?? "0",
+    copperSpot?.price_change_percent ?? "0%",
+    dateModified
+  );
+
+  return {
+    props: {
+      copperSpot,
+      jsonLd,
+    },
+  };
+}
