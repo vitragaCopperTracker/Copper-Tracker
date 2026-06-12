@@ -16,26 +16,6 @@ const formatDate = (iso) => {
   }
 };
 
-/* ── Skeleton loader ─────────────────────────────────────────────────────── */
-const Skeleton = () => (
-  <div className="border border-black/10 rounded-lg p-4 space-y-4">
-    <div className="h-5 w-44 bg-gray-200 rounded animate-pulse" />
-    <div className="h-px bg-gray-200" />
-    {[...Array(4)].map((_, i) => (
-      <div key={i} className="flex gap-3 pb-4 border-b border-gray-100 last:border-b-0">
-        <div className="w-[72px] h-[72px] rounded-md bg-gray-200 animate-pulse flex-shrink-0" />
-        <div className="flex-1 space-y-2 pt-1">
-          <div className="h-2.5 w-28 bg-gray-200 rounded animate-pulse" />
-          <div className="h-3.5 w-full bg-gray-200 rounded animate-pulse" />
-          <div className="h-3.5 w-4/5 bg-gray-200 rounded animate-pulse" />
-          <div className="h-2.5 w-16 bg-gray-200 rounded animate-pulse" />
-        </div>
-      </div>
-    ))}
-  </div>
-);
-
-/* ── Single post row ─────────────────────────────────────────────────────── */
 const PostRow = ({ post }) => (
   <Link
     href={post.url || "#"}
@@ -43,7 +23,6 @@ const PostRow = ({ post }) => (
     rel="noopener noreferrer"
     className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-b-0 last:pb-0 group"
   >
-    {/* Thumbnail */}
     <div className="flex-shrink-0 w-[72px] h-[72px] rounded-md overflow-hidden bg-gray-100">
       <img
         src={post.image || FALLBACK_IMAGE}
@@ -53,7 +32,6 @@ const PostRow = ({ post }) => (
       />
     </div>
 
-    {/* Text */}
     <div className="flex flex-col min-w-0">
       <span className="text-[10px] font-semibold tracking-wide text-accent uppercase mb-0.5 truncate">
         {post.source}
@@ -77,9 +55,9 @@ const PostRow = ({ post }) => (
 
 /* ── Main component ──────────────────────────────────────────────────────── */
 const Substacks = ({ limit = 5 }) => {
-  const [posts, setPosts]   = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError]   = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch("/api/substack-rss")
@@ -94,7 +72,10 @@ const Substacks = ({ limit = 5 }) => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <Skeleton />;
+  // Return null while loading
+  if (loading) return null;
+
+  //  Return null if error or no posts
   if (error || posts.length === 0) return null;
 
   return (

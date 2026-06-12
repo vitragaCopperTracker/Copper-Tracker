@@ -999,8 +999,10 @@ const ChartRhodium = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  //  Return null instead of showing "Loading..." or error text
+  if (loading) return null;
+  if (error) return null;
+  if (!data || data.length === 0) return null;
 
   const chartOptions = {
     chart: {
@@ -1009,7 +1011,7 @@ const ChartRhodium = () => {
       zoom: { enabled: false },
     },
     xaxis: {
-      categories: data ? data.map((item) => item.DateTime) : [],
+      categories: data.map((item) => item.DateTime),
       labels: {
         show: true,
         style: {
@@ -1059,8 +1061,8 @@ const ChartRhodium = () => {
     tooltip: {
       enabled: true,
       x: {
-        show: true, // Ensures date appears in tooltip
-        format: "dd MMM yyyy", // Formats date inside tooltip
+        show: true,
+        format: "dd MMM yyyy",
       },
       y: {
         formatter: (value, { dataPointIndex }) => {
@@ -1079,9 +1081,7 @@ const ChartRhodium = () => {
   const chartSeries = [
     {
       name: "Rhodium",
-      data: data
-        ? data.map((item) => parseFloat(item.Rhodium.replace(/,/g, "")))
-        : [],
+      data: data.map((item) => parseFloat(item.Rhodium.replace(/,/g, ""))),
     },
   ];
 

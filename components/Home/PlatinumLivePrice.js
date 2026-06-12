@@ -3,20 +3,34 @@ import { COPPER_PRICES } from "@/src/api/copperAPI";
 
 const PlatinumLivePrice = () => {
   const [platinumData, setPlatinumData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(COPPER_PRICES)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         const platinumInfo = data.find((item) => item.pgm_name === "Palladium");
         setPlatinumData(platinumInfo);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError(error.message);
+        setLoading(false);
+      });
   }, []);
 
-  if (!platinumData) {
-    return <div>Loading...</div>;
-  }
+  // Return null while loading
+  if (loading) return null;
+
+  // Return null if error or no data
+  if (error || !platinumData) return null;
 
   const platinumSpotPrice = parseFloat(platinumData.price).toFixed(2);
   const change = parseFloat(platinumData.price_change).toFixed(2);
@@ -33,7 +47,7 @@ const PlatinumLivePrice = () => {
       <div className="bg-accent/30 p-3 md:p-2 lg:p-3 py-4 w-full border border-accent/30 rounded-md flex justify-between items-center">
         <div className="h-8 md:h-6 lg:h-8">
           <img
-            className="w-16  md:w-12 lg:w-28 h-16 md:h-6 lg:h-10 sm:h-10 sm:w-28"
+            className="w-16 md:w-12 lg:w-28 h-16 md:h-6 lg:h-10 sm:h-10 sm:w-28"
             src="/logo.png"
             alt="Logo"
           />

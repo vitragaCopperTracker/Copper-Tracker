@@ -8,7 +8,6 @@ const MostPopularNews = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetching news articles from the local database API
     const fetchNews = async () => {
       try {
         setLoading(true);
@@ -21,7 +20,6 @@ const MostPopularNews = () => {
         const data = await response.json();
         console.log("Most Popular News data:", data);
 
-        // Slice to get news starting from 6th item and limit to 8 items
         setNews(Array.isArray(data) ? data.slice(10, 18) : []);
         setLoading(false);
       } catch (error) {
@@ -35,67 +33,10 @@ const MostPopularNews = () => {
     fetchNews();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="mb-14 border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3">
-        <div className="h-7 w-36 bg-gray-200 rounded animate-pulse pb-2 mb-1" />
-
-        <div className="border-black/10 rounded-lg pl-3 pb-2 pr-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-5">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <div
-                key={index}
-                className="flex items-center w-full border-b border-gray-300 pb-7"
-              >
-                <div className="flex flex-col items-center justify-center mr-4">
-                  <div className="h-8 w-6 bg-gray-200 rounded animate-pulse" />
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  <div className="mb-2">
-                    <div className="h-5 w-12 bg-gray-200 rounded-sm animate-pulse" />
-                  </div>
-
-                  <div className="space-y-1.5 mb-1">
-                    <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-                    <div className="h-4 w-4/5 bg-gray-200 rounded animate-pulse" />
-                  </div>
-
-                  <div className="h-3 w-28 bg-gray-100 rounded animate-pulse mt-1" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="mb-14 md:mb-10 ">
-        <h2 className="text-[21px] font-bold cambay text-black1/80 border-b border-gray-300 pb-2 mb-4">
-          Most Popular
-        </h2>
-        <div className="text-center py-8 text-red-500">
-          Error loading news: {error}
-        </div>
-      </div>
-    );
-  }
-
-  if (news.length === 0) {
-    return (
-      <div className="mb-14 md:mb-10">
-        <h2 className="text-[21px] font-bold cambay text-black1/80 border-b border-gray-300 pb-2 mb-4">
-          Most Popular
-        </h2>
-        <div className="text-center py-8 text-gray-500">
-          No popular news available at this time
-        </div>
-      </div>
-    );
-  }
+  // Return null for non-data states
+  if (loading) return null;
+  if (error) return null;
+  if (news.length === 0) return null;
 
   return (
     <div className="mb-14 border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3">
@@ -103,7 +44,7 @@ const MostPopularNews = () => {
         Most Popular
       </h2>
       <div className="border-black/10 rounded-lg pl-3 pb-2 pr-3">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-5">
           {news.map((item, index) => (
             <Link
               href={item.url}
@@ -111,15 +52,12 @@ const MostPopularNews = () => {
               key={item.id || index}
               className="flex items-center group w-full border-b border-gray-300 pb-7"
             >
-              {/* Number vertically aligned */}
               <div className="flex flex-col items-center justify-center mr-4">
                 <span className="text-3xl font-bold text-black/30 group-hover:text-accent">
                   {index + 1}
                 </span>
               </div>
-              {/* Content */}
               <div className="flex-1 flex flex-col">
-                {/* Ticker Badge */}
                 {item.ticker && (
                   <div className="mb-2">
                     <span className="bg-accent text-[10px] rounded-sm text-white px-2 py-1">
@@ -127,7 +65,6 @@ const MostPopularNews = () => {
                     </span>
                   </div>
                 )}
-                {/* Title */}
                 <h3
                   className="text-[15px] group-hover:underline transition-all duration-200 font-medium flex-1"
                   style={{
@@ -140,7 +77,6 @@ const MostPopularNews = () => {
                 >
                   {item.title}
                 </h3>
-                {/* Company Name */}
                 {item.company_name && (
                   <p className="text-[12px] text-gray-600 mt-1">
                     {item.company_name}

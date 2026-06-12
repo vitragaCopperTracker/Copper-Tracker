@@ -131,9 +131,7 @@
 // };
 
 // export default StockNews;
-
 import React, { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
 import { STOCK_NEWS } from "@/src/api/copperAPI";
 
 const StockNews = () => {
@@ -154,7 +152,6 @@ const StockNews = () => {
         const data = await response.json();
         console.log("Stock news data:", data);
 
-        // Process the data to add today's date for missing dates
         const processedData = Array.isArray(data)
           ? data.map((news) => ({
               ...news,
@@ -174,7 +171,6 @@ const StockNews = () => {
     fetchNews();
   }, []);
 
-  // Function to format date
   const formatDate = (dateString) => {
     if (!dateString) {
       return new Date().toLocaleDateString("en-US", {
@@ -197,97 +193,12 @@ const StockNews = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3">
-        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
-          Copper Stock News
-        </h2>
+  // Return null for non-data states
+  if (loading) return null;
+  if (error) return null;
 
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-6 gap-x-8">
-          <div className="col-span-4">
-            <div className="w-full h-52 bg-gray-200 rounded-lg animate-pulse" />
-
-            <div className="pt-8">
-              <div className="flex gap-x-3 mb-2">
-                <div className="h-5 w-14 bg-gray-200 rounded-sm animate-pulse" />
-                <div className="h-5 w-24 bg-gray-100 rounded-sm animate-pulse" />
-              </div>
-
-              <div className="space-y-2 mb-2">
-                <div className="h-5 w-full bg-gray-200 rounded animate-pulse" />
-                <div className="h-5 w-4/5 bg-gray-200 rounded animate-pulse" />
-              </div>
-
-              <div className="space-y-1.5 mb-2">
-                <div className="h-3.5 w-full bg-gray-100 rounded animate-pulse" />
-                <div className="h-3.5 w-3/4 bg-gray-100 rounded animate-pulse" />
-              </div>
-
-              <div className="flex items-center gap-x-2">
-                <div className="h-3.5 w-20 bg-gray-100 rounded animate-pulse" />
-                <div className="h-3.5 w-px bg-gray-200" />
-                <div className="h-3.5 w-24 bg-gray-100 rounded animate-pulse" />
-              </div>
-            </div>
-          </div>
-
-          <div className="col-span-4 space-y-2">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={index}
-                className="flex items-center overflow-hidden border-b border-black/10 pb-[22px] md:pb-[4px] "
-              >
-                <div className="flex-1">
-                  <div className="mb-2">
-                    <div className="h-5 w-14 bg-gray-200 rounded-sm animate-pulse" />
-                  </div>
-
-                  <div className="space-y-1.5 mb-1">
-                    <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-                    <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse" />
-                    <div className="h-3 w-3/4 bg-gray-200 rounded animate-pulse" />
-                  </div>
-
-                  <div className="h-3 w-32 bg-gray-100 rounded animate-pulse mb-1" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="border border-black/10 rounded-lg pt-3 pl-3 pr-3">
-        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
-          Copper Stock News
-        </h2>
-        <div className="text-center py-8 text-red-500">
-          Error loading stock news: {error}
-        </div>
-      </div>
-    );
-  }
-
-  // Ensure newsData is an array and has content
   const validNewsData = Array.isArray(newsData) ? newsData : [];
-
-  // Show message when no news is available
-  if (validNewsData.length === 0) {
-    return (
-      <div>
-        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
-          Copper Stock News
-        </h2>
-        <div className="text-center py-12 text-gray-600">
-          No stock news available at this time
-        </div>
-      </div>
-    );
-  }
+  if (validNewsData.length === 0) return null;
 
   const featuredNews = validNewsData[0];
   const remainingNews = validNewsData.slice(1, 5);
@@ -327,7 +238,6 @@ const StockNews = () => {
                     {featuredNews.title}
                   </h3>
 
-                  {/* Summary */}
                   {featuredNews.summary && (
                     <p className="text-[14px] text-gray-600 mb-2 line-clamp-2">
                       {featuredNews.summary.length > 150
@@ -372,7 +282,6 @@ const StockNews = () => {
                       : news.title}
                   </h3>
 
-                  {/* Company name for smaller news */}
                   {news.company_name && (
                     <p className="text-[12px] text-gray-600 mb-1">
                       {news.company_name}

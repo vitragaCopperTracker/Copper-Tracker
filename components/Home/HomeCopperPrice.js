@@ -16,7 +16,6 @@ const HomeCopperPrice = () => {
         }
         const data = await response.json();
 
-        // Sort data to ensure Copper comes first
         const sortedData = data.sort((a, b) => {
           if (a.metal_name === "Copper") return -1;
           if (b.metal_name === "Copper") return 1;
@@ -32,27 +31,23 @@ const HomeCopperPrice = () => {
     fetchPrices();
   }, []);
 
-  if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
-  }
+  // Return null while loading
+  if (loading) return null;
 
-  if (error || copperPrices.length === 0) {
-    return null;
-  }
+  // Return null if error or no data
+  if (error || copperPrices.length === 0) return null;
 
   const formatValue = (value) => {
-    // Handle null, undefined, or invalid values by returning "0.00"
     if (value === null || value === undefined || isNaN(value)) {
       return "0.00";
     }
-    // Ensure the value is a number and format it to two decimal places
     return parseFloat(value).toFixed(2);
   };
 
   const getChangeClass = (value) => {
-    if (value > 0) return "text-green-500"; // Green for positive values
-    if (value < 0) return "text-red-500"; // Red for negative values
-    return "text-black"; // Default color if 0
+    if (value > 0) return "text-green-500";
+    if (value < 0) return "text-red-500";
+    return "text-black";
   };
 
   const renderRow = (metalData) => (
@@ -64,7 +59,6 @@ const HomeCopperPrice = () => {
           parseFloat(metalData.price_change)
         )}`}
       >
-        {/* Display Change with proper sign */}
         {metalData.price_change > 0
           ? `$+${formatValue(metalData.price_change)}`
           : metalData.price_change < 0
