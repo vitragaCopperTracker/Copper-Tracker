@@ -14,7 +14,6 @@ const HomeInsiderTransactions = () => {
         }
         const data = await response.json();
 
-        // Filter for Canadian transactions and limit to 10 most recent
         const canadianTransactions = data
           .filter((t) => t.country === "Canada")
           .slice(0, 10);
@@ -41,44 +40,20 @@ const HomeInsiderTransactions = () => {
     });
   };
 
-  const shimmer =
-    "animate-pulse bg-gradient-to-r from-muted/80 via-muted to-muted/60 bg-[length:600px_100%]";
+  // Return null while loading
+  if (loading) return null;
 
-  const cols = [
-    null,
-    "w-10 px-10 ",
-    "w-10 ", // ticker
-    "w-10 px-10 ", // insider
-    "w-8", // title
-    "w-10 px-7", // type
-    "w-10 px-6", // price
-    "w-9 px-9", // qty
-    "w-10 px-8", // amount
-    "w-9 px-6", // date
-  ];
-  const rows = 10;
+  // Return null if error
+  if (error) return null;
 
-  if (loading) {
-    return null;
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-4 text-red-500 text-sm">
-        Error loading transactions: {error}
-      </div>
-    );
-  }
-
-  if (transactions.length === 0) {
-    return (
-      <div className="text-center py-4 text-gray-500 text-sm">
-        No recent transactions available
-      </div>
-    );
-  }
+  //  Return null if no transactions
+  if (transactions.length === 0) return null;
 
   return (
+    <div className="flex flex-col w-full border border-black/10 rounded-xl p-3">
+      <h2 className="text-[21px] cambay font-bold mb-2 pb-1">
+        Recent Activities
+      </h2>
     <div className="overflow-auto md:overflow-scroll 2xl:overflow-visible custom-scrollbar-hidden">
       <table className="table-auto w-full border-collapse text-md ">
         <thead className="text-left ">
@@ -147,6 +122,7 @@ const HomeInsiderTransactions = () => {
         </tbody>
       </table>
     </div>
+     </div>
   );
 };
 

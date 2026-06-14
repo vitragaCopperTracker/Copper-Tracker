@@ -215,7 +215,6 @@
 
 import React, { useState, useEffect } from "react";
 import { PRESS_RELEASE } from "@/src/api/copperAPI";
-import Loader from "../Loader";
 
 const PlainNews = () => {
   const [newsData, setNewsData] = useState([]);
@@ -283,32 +282,14 @@ const PlainNews = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div>
-        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
-        <Loader />
-      </div>
-    );
-  }
+  // Task 5 fix: Return null while loading
+  if (loading) return null;
 
-  if (error) {
-    return (
-      <div>
-        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
-        <div className="text-center py-8 text-red-500">{error}</div>
-      </div>
-    );
-  }
+  // Return null if error
+  if (error) return null;
 
-  if (!newsData || newsData.length === 0) {
-    return (
-      <div>
-        <h2 className="text-[21px] cambay font-bold mb-3">Latest Copper News</h2>
-        <div className="text-center py-8 text-gray-500">No data available</div>
-      </div>
-    );
-  }
+  // Return null if no data
+  if (!newsData || newsData.length === 0) return null;
 
   return (
     <div>
@@ -326,7 +307,6 @@ const PlainNews = () => {
               >
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1">
-                    {/* Ticker Badge */}
                     {news.ticker && (
                       <div className="mb-2">
                         <span className="bg-accent text-[10px] rounded-sm text-white px-2 py-1">
@@ -339,7 +319,6 @@ const PlainNews = () => {
                       {news.title}
                     </h2>
                     
-                    {/* Company Name */}
                     {news.company_name && (
                       <p className="text-[12px] text-gray-600 mt-1">
                         {news.company_name}

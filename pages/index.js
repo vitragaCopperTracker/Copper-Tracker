@@ -151,26 +151,15 @@ const home = ({ copperSpot, jsonLd }) => {
           {/* 1 */}
           <div className="grid grid-cols-1 md:grid-cols-9 gap-5 ">
             {/* graph  */}
-            <div className="md:col-span-4 xl:col-span-3 w-full  border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
-              <h2 className="text-[21px] font-bold mb-2 pb-1">
-                Copper Price Chart
-              </h2>
+            <div className="md:col-span-4 xl:col-span-3 ">
               <TVCopperCFD />
             </div>
             {/* table  */}
-            <div className="md:col-span-5 xl:col-span-6 bg-white border border-black/10 rounded-lg pt-3 pl-3 pb-2">
-              <h2 className="text-[21px] cambay font-bold mb-2">Prices</h2>
               <DirectHomeCopperPrice />
-            </div>
           </div>
 
           {/* 2 */}
-          <div className="flex flex-col w-full border border-black/10 rounded-xl p-3 ">
-            <h2 className="text-[21px] cambay font-bold mb-2  pb-1">
-              Recent Activities
-            </h2>
             <HomeInsiderTransactions />
-          </div>
 
           {/* 3 */}
           <div>
@@ -183,12 +172,8 @@ const home = ({ copperSpot, jsonLd }) => {
           <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-1">
             <DirectCopperPrice />
           </div>
-          <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3 ">
-            <h2 className="text-[21px] cambay font-bold mb-3 border-b border-black/10 pb-1">
-              Copper Futures
-            </h2>
             <TVCopper />
-          </div>
+          {/* </div> */}
           <Substacks />
         </div>
       </div>

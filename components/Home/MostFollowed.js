@@ -237,7 +237,7 @@ const MostFollowed = () => {
         const data = await response.json();
         console.log("most folloerwr", data.data);
         console.log("data ye ", data?.data?.most_watched);
-        setStockData(data?.data?.most_watched?.slice(0, 10)); // Limit to 10-12 stocks
+        setStockData(data?.data?.most_watched?.slice(0, 10));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -277,9 +277,14 @@ const MostFollowed = () => {
     setErrorMessage("");
   };
 
-  if (loading) {
-    return null;
-  }
+  //  Return null while loading
+  if (loading) return null;
+
+  //  Return null if error
+  if (error) return null;
+
+  //  Return null if no data
+  if (!stockData || stockData.length === 0) return null;
 
   return (
     <div className="border border-black/10 rounded-lg pt-3 pl-3 pb-2 pr-3">
@@ -304,59 +309,56 @@ const MostFollowed = () => {
         </div>
       )}
 
-      {loading && <p className="text-center text-gray-500">Loading...</p>}
-      {error && <p className="text-center text-red-500">{error}</p>}
-      {!loading && !error && (
-        <table className="w-full text-left text-sm font-sans">
-          <thead>
-            <tr>
-              <th className="pb-2 text-xs font-medium text-black1/60">
-                COMPANY
-              </th>
-              <th className="pb-2 text-xs font-medium text-black1/60 text-right">
-                PRICE
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {stockData
-              .sort(
-                (a, b) =>
-                  (b.intraday_percentage || 0) - (a.intraday_percentage || 0),
-              ) // Sort by intraday percentage
-              .map((stock) => (
-                <tr
-                  key={stock.id || stock.ticker || Math.random()}
-                  className="border-b border-gray-200 cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleStockClick(stock.ticker?.split(".")[0])}
-                >
-                  <td className="py-2">
-                    <div>
-                      <strong className="text-accent">
-                        {stock.ticker || "N/A"}
-                      </strong>
-                    </div>
-                    <div className="text-gray-500">{stock.name || "N/A"}</div>
-                  </td>
-                  <td className="py-2 text-right">
-                    <div>
-                      ${parseFloat(stock.current_price || 0).toFixed(2)}
-                    </div>
-                    <div
-                      className={`${
-                        parseFloat(stock.intraday_percentage || 0) < 0
-                          ? "text-red-600"
-                          : "text-green-500"
-                      }`}
-                    >
-                      {parseFloat(stock.intraday_percentage || 0).toFixed(2)}%
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      )}
+      <table className="w-full text-left text-sm font-sans">
+        <thead>
+          <tr>
+            <th className="pb-2 text-xs font-medium text-black1/60">
+              COMPANY
+            </th>
+            <th className="pb-2 text-xs font-medium text-black1/60 text-right">
+              PRICE
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {stockData
+            .sort(
+              (a, b) =>
+                (b.intraday_percentage || 0) - (a.intraday_percentage || 0),
+            )
+            .map((stock) => (
+              <tr
+                key={stock.id || stock.ticker || Math.random()}
+                className="border-b border-gray-200 cursor-pointer hover:bg-gray-100"
+                onClick={() => handleStockClick(stock.ticker?.split(".")[0])}
+              >
+                <td className="py-2">
+                  <div>
+                    <strong className="text-accent">
+                      {stock.ticker || "N/A"}
+                    </strong>
+                  </div>
+                  <div className="text-gray-500">{stock.name || "N/A"}</div>
+                </td>
+                <td className="py-2 text-right">
+                  <div>
+                    ${parseFloat(stock.current_price || 0).toFixed(2)}
+                  </div>
+                  <div
+                    className={`${
+                      parseFloat(stock.intraday_percentage || 0) < 0
+                        ? "text-red-600"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {parseFloat(stock.intraday_percentage || 0).toFixed(2)}%
+                  </div>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+
       {/* View More Link */}
       <div className="mt-4 text-left">
         <a

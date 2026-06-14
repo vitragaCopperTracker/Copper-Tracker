@@ -115,7 +115,6 @@
 
 // export default ChartRuthenium;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -152,8 +151,10 @@ const ChartRuthenium = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  // Return null instead of showing "Loading..." or error text
+  if (loading) return null;
+  if (error) return null;
+  if (!data || data.length === 0) return null;
 
   const chartOptions = {
     chart: {
@@ -162,7 +163,7 @@ const ChartRuthenium = () => {
       zoom: { enabled: false },
     },
     xaxis: {
-      categories: data ? data.map((item) => item.DateTime) : [],
+      categories: data.map((item) => item.DateTime),
       labels: {
         show: true,
         style: {
@@ -231,7 +232,7 @@ const ChartRuthenium = () => {
   const chartSeries = [
     {
       name: "Ruthenium",
-      data: data ? data.map((item) => parseFloat(item.Ruthenium.replace(/,/g, ""))) : [],
+      data: data.map((item) => parseFloat(item.Ruthenium.replace(/,/g, ""))),
     },
   ];
 

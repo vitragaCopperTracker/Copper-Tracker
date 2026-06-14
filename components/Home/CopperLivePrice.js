@@ -15,7 +15,6 @@ const CopperLivePrice = () => {
         }
         const data = await response.json();
 
-        // Find the Copper data from the response
         const copperInfo = data.find(
           (item) => item.metal_name === "Copper" || item.pgm_name === "Copper",
         );
@@ -31,21 +30,11 @@ const CopperLivePrice = () => {
     fetchCopperPrice();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="text-center">
-        <h2 className="flex text-[21px] md:text-[16px] lg:text-[21px] cambay font-bold text-black1/80 capitalize border-b border-black1/20 pb-2 mb-6 lg:mb-4"></h2>
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-800"></div>
-          <span className="ml-3 text-gray-800 font-semibold">Loading...</span>
-        </div>
-      </div>
-    );
-  }
+  // Return null while loading
+  if (loading) return null;
 
-  if (error || !copperData) {
-    return null;
-  }
+  // Return null if error or no data
+  if (error || !copperData) return null;
 
   const copperSpotPrice = parseFloat(copperData.price || 0).toFixed(2);
   const change = parseFloat(copperData.price_change || 0).toFixed(2);
@@ -56,7 +45,6 @@ const CopperLivePrice = () => {
   return (
     <div className="text-center">
       <h2 className="flex text-[21px] md:text-[16px] lg:text-[21px] cambay font-bold text-black1/80 capitalize border-b border-black1/20 pb-2 mb-6 lg:mb-4">
-        {" "}
         Live Copper Price
       </h2>
 

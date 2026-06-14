@@ -382,10 +382,8 @@
 // export default LatestNews;
 
 import React, { useState, useEffect } from "react";
-// import Loader from "../Loader";
 import { GENERAL_NEWS } from "@/src/api/copperAPI";
 
-// Updated: 2026-02-15 - Using ONLY general news endpoint
 const LatestNews = () => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -411,7 +409,6 @@ const LatestNews = () => {
           return;
         }
 
-        // Process the data to add today's date for missing dates
         const processedData = Array.isArray(data)
           ? data.map((news) => ({
               ...news,
@@ -446,83 +443,19 @@ const LatestNews = () => {
     }
   };
 
+  // Return null while loading (NO skeletons, NO heading)
   if (loading) {
-    return (
-      <div className="border border-black/10 rounded-xl pl-5 mr-3 pb-2 pt-4">
-        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
-          Latest Copper News
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Left Side: Main News with Image */}
-          <div className="flex flex-col gap-5 ">
-            <div className="w-full h-64 bg-zinc-400 animate-pulse rounded-lg"></div>
-            <div className="flex flex-col gap-2">
-              <div className="w-12 h-4 bg-zinc-200 animate-pulse rounded-sm"></div>
-              <div className="w-64 h-4 bg-zinc-200 animate-pulse rounded-sm"></div>
-              <div className="w-16 h-4 bg-zinc-200 animate-pulse rounded-sm"></div>
-            </div>
-          </div>
-
-          {/* Right Side: Three Vertical News with Images */}
-          <div className="space-y-4 xl:space-y-8 2xl:space-y-7">
-            <div className="flex gap-4">
-              <div className="w-24 h-24 bg-zinc-200 animate-pulse rounded-lg"></div>
-              <div className="flex flex-col gap-3 ">
-                <div className="w-10 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-72 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-56 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-                <div className="w-4 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-24 h-24 bg-zinc-200 animate-pulse rounded-lg"></div>
-              <div className="flex flex-col gap-3 ">
-                <div className="w-10 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-72 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-56 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-                <div className="w-4 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-24 h-24 bg-zinc-200 animate-pulse rounded-lg"></div>
-              <div className="flex flex-col gap-3 ">
-                <div className="w-10 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-72 bg-zinc-200 animate-pulse h-5 rounded-lg"></div>
-                <div className="w-56 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-                <div className="w-4 bg-zinc-200 animate-pulse h-3 rounded-lg"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return null;
   }
 
+  // Return null if error
   if (error) {
-    return (
-      <div>
-        <h2 className="text-[21px] border border-black/10 rounded-xl p-3 mr-2 cambay font-bold mb-5 border-b pb-2">
-          Latest Copper News
-        </h2>
-        <div className="flex justify-center items-center h-32 text-red-500">
-          <span>Error: {error}</span>
-        </div>
-      </div>
-    );
+    return null;
   }
 
+  // Return null if no data
   if (newsData.length === 0) {
-    return (
-      <div>
-        <h2 className="text-[21px] cambay font-bold mb-5 border-b border-black/10 pb-2">
-          Latest Copper News
-        </h2>
-        <div className="text-center py-8 text-gray-500">
-          No news available at this time
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -549,7 +482,6 @@ const LatestNews = () => {
                 />
               )}
 
-              {/* Source or Ticker Badge */}
               {(newsData[0].source || newsData[0].ticker) && (
                 <div className="mb-2">
                   <span className="bg-accent text-[11px] rounded-sm text-white px-2 py-1">
@@ -562,7 +494,6 @@ const LatestNews = () => {
                 {newsData[0].title}
               </h2>
 
-              {/* Summary or Content */}
               {(newsData[0].summary || newsData[0].content) && (
                 <p className="text-[14px] text-gray-600 mb-2 line-clamp-2">
                   {(newsData[0].summary || newsData[0].content).length > 150
@@ -571,7 +502,6 @@ const LatestNews = () => {
                 </p>
               )}
 
-              {/* Company Name (for stock news) */}
               {newsData[0].company_name && (
                 <p className="text-[13px] text-gray-600 mb-1">
                   {newsData[0].company_name}
@@ -603,7 +533,6 @@ const LatestNews = () => {
                 />
               )}
               <div className="flex flex-col justify-start">
-                {/* Source or Ticker Badge */}
                 {(news.source || news.ticker) && (
                   <div className="mb-1">
                     <span className="bg-accent text-[10px] rounded-sm text-white px-2 py-1">
@@ -616,7 +545,6 @@ const LatestNews = () => {
                   {news.title}
                 </h3>
 
-                {/* Company Name (for stock news) */}
                 {news.company_name && (
                   <p className="text-[11px] text-gray-600 mt-1">
                     {news.company_name}

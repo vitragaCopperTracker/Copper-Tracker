@@ -9,7 +9,6 @@ const HomeInsiderTransactionTable = () => {
 
   const rowsPerPage = 8;
 
-  // Fetch data from API
   useEffect(() => {
     const fetchInsiderTransactions = async () => {
       try {
@@ -88,122 +87,104 @@ const HomeInsiderTransactionTable = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  //  Task 5 fix: Return null while loading
+  if (loading) return null;
+
+  //  Return null if error
+  if (error) return null;
+
+  // Return null if no data
+  if (insiderTransactionsData.length === 0) return null;
+
   return (
     <div>
-      {loading ? (
-        <div className="text-white">Loading...</div>
-      ) : error ? (
-        <div className="text-red-500">{error}</div>
-      ) : insiderTransactionsData.length > 0 ? (
-        <div className="overflow-x-auto  custom-scrollbar-hidden">
-          <table className="w-full mb-8">
-            <thead className="bg-bg text-black/60 font-semibold border-b border-date/10">
-              <tr>
-                {[
-                  "Country",
-                  "Company Name",
-                  "Insider Name",
-                  "Title",
-                  "Trade Type",
-                  "Price",
-                  "Quantity",
-                  "Amount",
-                  "Owned",
-                  "Transaction Date",
-                ].map((heading) => (
-                  <th
-                    key={heading}
-                    className="px-2 py-2 md:px-4 md:py-[16px] text-left text-[10px] md:text-[11px] font-semibold uppercase tracking-wider"
-                  >
-                    {heading}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className=" text-black1/90">
-              {dataToShow.map((data) => {
-                const isNegativeTransaction =
-                  data.trade_type === "S - Sale" ||
-                  parseFloat(data.value.replace(/[^\d.-]/g, "")) < 0;
+      <div className="overflow-x-auto custom-scrollbar-hidden">
+        <table className="w-full mb-8">
+          <thead className="bg-bg text-black/60 font-semibold border-b border-date/10">
+            <tr>
+              {[
+                "Country",
+                "Company Name",
+                "Insider Name",
+                "Title",
+                "Trade Type",
+                "Price",
+                "Quantity",
+                "Amount",
+                "Owned",
+                "Transaction Date",
+              ].map((heading) => (
+                <th
+                  key={heading}
+                  className="px-2 py-2 md:px-4 md:py-[16px] text-left text-[10px] md:text-[11px] font-semibold uppercase tracking-wider"
+                >
+                  {heading}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="text-black1/90">
+            {dataToShow.map((data) => {
+              const isNegativeTransaction =
+                data.trade_type === "S - Sale" ||
+                parseFloat(data.value.replace(/[^\d.-]/g, "")) < 0;
 
-                return (
-                  <tr
-                    key={data.id}
-                    className="hover:bg-accent/10 py-2 border-b border-date/10 text-[13px] text-start"
+              return (
+                <tr
+                  key={data.id}
+                  className="hover:bg-accent/10 py-2 border-b border-date/10 text-[13px] text-start"
+                >
+                  <td
+                    className="px-4 py-[10px] scale-90"
+                    dangerouslySetInnerHTML={{
+                      __html: getCountryFlag(data.country),
+                    }}
+                  />
+                  <td className="px-5 py-[10px] font-semibold">
+                    {data.company_name || "N/A"}
+                  </td>
+                  <td className="px-4 py-[10px]">
+                    {data.insider_name || "N/A"}
+                  </td>
+                  <td className="px-5 py-[10px] text-[14px]">
+                    {data.title || "N/A"}
+                  </td>
+                  <td className="px-5 py-[10px] text-[14px]">
+                    {data.trade_type || "N/A"}
+                  </td>
+                  <td className="px-4 py-[10px] text-black">
+                    {formatLargeNumber(data.price || "0.00", data.trade_type)}
+                  </td>
+                  <td
+                    className={`px-4 py-[10px] ${
+                      isNegativeTransaction
+                        ? "text-red-500"
+                        : getColorClass(data.qty, data.trade_type)
+                    }`}
                   >
-                    <td
-                      className="px-4 py-[10px] scale-90"
-                      dangerouslySetInnerHTML={{
-                        __html: getCountryFlag(data.country),
-                      }}
-                    />
-                    <td className="px-5 py-[10px] font-semibold">
-                      {data.company_name || "N/A"}
-                    </td>
-                    <td className="px-4 py-[10px]">
-                      {data.insider_name || "N/A"}
-                    </td>
-                    <td className="px-5 py-[10px] text-[14px]">
-                      {data.title || "N/A"}
-                    </td>
-                    <td className="px-5 py-[10px] text-[14px]">
-                      {data.trade_type || "N/A"}
-                    </td>
-                    <td className="px-4 py-[10px] text-black">
-                      {formatLargeNumber(data.price || "0.00", data.trade_type)}
-                    </td>
-                    <td
-                      className={`px-4 py-[10px] ${
-                        isNegativeTransaction
-                          ? "text-red-500"
-                          : getColorClass(data.qty, data.trade_type)
-                      }`}
-                    >
-                      {formatLargeNumber(data.qty || "0", data.trade_type)}
-                    </td>
-                    <td
-                      className={`px-5 py-[10px] ${
-                        isNegativeTransaction
-                          ? "text-red-500"
-                          : getColorClass(data.value)
-                      }`}
-                    >
-                      {formatLargeNumber(data.value || "0.00")}
-                    </td>
-                    <td className="px-4 py-[10px]">
-                      {formatLargeNumber(data.owned || "0")}
-                    </td>
-                    <td className="px-4 py-[10px]">
-                      {data.transaction_date || "N/A"}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {/* <div className="flex justify-between items-center mt-4">
-            <button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div> */}
-        </div>
-      ) : (
-        <div className="text-black text-start w-full">No data available</div>
-      )}
+                    {formatLargeNumber(data.qty || "0", data.trade_type)}
+                  </td>
+                  <td
+                    className={`px-5 py-[10px] ${
+                      isNegativeTransaction
+                        ? "text-red-500"
+                        : getColorClass(data.value)
+                    }`}
+                  >
+                    {formatLargeNumber(data.value || "0.00")}
+                  </td>
+                  <td className="px-4 py-[10px]">
+                    {formatLargeNumber(data.owned || "0")}
+                  </td>
+                  <td className="px-4 py-[10px]">
+                    {data.transaction_date || "N/A"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,6 @@ const DirectHomeCopperPrice = () => {
       try {
         setLoading(true);
 
-        // Fetch metal prices from our database API
         const response = await fetch("/api/copper-prices");
 
         if (!response.ok) {
@@ -23,14 +22,12 @@ const DirectHomeCopperPrice = () => {
           throw new Error("No metal price data available from database");
         }
 
-        // Ensure data.data is an array
         const dataArray = Array.isArray(data.data) ? data.data : [data.data];
 
         if (dataArray.length === 0) {
           throw new Error("No metal price data available from database");
         }
 
-        // Transform database data to component format
         const metalPrices = dataArray.map((item) => ({
           metal_name: item.metal_name,
           price: parseFloat(item.price),
@@ -39,38 +36,11 @@ const DirectHomeCopperPrice = () => {
         }));
 
         setCopperPrices(metalPrices);
+        setError(null);
       } catch (err) {
         console.error("Error fetching prices from database:", err);
         setError(err.message);
-
-        // Fallback to mock data
-        const fallbackData = [
-          {
-            metal_name: "Copper",
-            price: 4.15,
-            price_change: -0.08,
-            price_change_percent: -1.89,
-          },
-          {
-            metal_name: "Aluminum",
-            price: 0.91,
-            price_change: -0.02,
-            price_change_percent: -1.51,
-          },
-          {
-            metal_name: "Nickel",
-            price: 8.51,
-            price_change: -0.16,
-            price_change_percent: -2.27,
-          },
-          {
-            metal_name: "Zinc",
-            price: 1.25,
-            price_change: -0.02,
-            price_change_percent: -1.7,
-          },
-        ];
-        setCopperPrices(fallbackData);
+        setCopperPrices([]);
       } finally {
         setLoading(false);
       }
@@ -78,7 +48,6 @@ const DirectHomeCopperPrice = () => {
 
     fetchPricesFromDatabase();
 
-    // Refresh every 2 minutes
     const interval = setInterval(fetchPricesFromDatabase, 2 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
@@ -125,59 +94,16 @@ const DirectHomeCopperPrice = () => {
     </tr>
   );
 
-  if (loading) {
-    let rows = 5;
-    return (
-      <div className="overflow-x-auto border border-black/10 rounded-xl pl-5 mr-3 pb-2 custom-scrollbar-hidden">
-        <table className="table-auto w-full border-collapse text-sm">
-          <thead className="text-left">
-            <tr className="text-black/60">
-              <th className="border-t py-2">Metal</th>
-              <th className="border-t px-[94px] py-2">Price (USD/lb)</th>
-              <th className="border-t px-24 py-2">Change</th>
-              <th className="border-t px-[87px] py-2">% Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: rows }).map((_, i) => (
-              <tr key={i} className="border-t border-gray-100">
-                <td className="py-3">
-                  <div className="flex items-center gap-2">
-                    <div className="h-3.5 w-16 bg-gray-200 rounded animate-pulse" />
-                  </div>
-                </td>
-                <td className="py-3 px-24">
-                  <div className="h-3.5 w-24 bg-gray-200 rounded animate-pulse" />
-                </td>
-                <td className="py-3 px-24">
-                  <div className="h-3.5 w-16 bg-gray-200 rounded animate-pulse" />
-                </td>
-                <td className="py-3 px-24">
-                  <div className="h-3.5 w-14 bg-gray-200 rounded animate-pulse" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  // Return null while loading
+  if (loading) return null;
 
-        <div className="mt-2 flex justify-center">
-          <div className="h-3 w-48 bg-gray-200 rounded animate-pulse" />
-        </div>
-      </div>
-    );
-  }
-
-  if (error && copperPrices.length === 0) {
-    return (
-      <div className="text-center py-4 text-red-500">
-        Error: {error}
-        <p className="text-sm text-gray-600 mt-2">Using fallback data</p>
-      </div>
-    );
-  }
+  // Return null if error or no data
+  if (error || copperPrices.length === 0) return null;
 
   return (
-    <div className="overflow-x-auto border border-black/10 rounded-xl pl-5 mr-3 pb-2  custom-scrollbar-hidden">
+     <div className="md:col-span-5 xl:col-span-6 bg-white border border-black/10 rounded-lg pt-3 pl-3 pb-2">
+    <h2 className="text-[21px] cambay font-bold mb-2">Prices</h2>
+    <div className="overflow-x-auto border border-black/10 rounded-xl pl-5 mr-3 pb-2 custom-scrollbar-hidden">
       <table className="table-auto w-full border-collapse text-sm">
         <thead className="text-left">
           <tr className="text-black/60">
@@ -188,27 +114,10 @@ const DirectHomeCopperPrice = () => {
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(copperPrices) && copperPrices.length > 0 ? (
-            copperPrices.map((metalData) => renderRow(metalData))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center py-4 text-gray-500">
-                No price data available
-              </td>
-            </tr>
-          )}
+          {copperPrices.map((metalData) => renderRow(metalData))}
         </tbody>
       </table>
-
-      {error && (
-        <div className="mt-2 text-xs text-orange-600 text-center">
-          Note: Some data may be simulated due to API restrictions
-        </div>
-      )}
-
-      <div className="mt-2 text-xs text-gray-500 text-center">
-        Last updated: {new Date().toLocaleTimeString()} • Auto-refresh: 2 min
-      </div>
+    </div>
     </div>
   );
 };
